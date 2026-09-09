@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Misión llegada - CHF Robótica Educativa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --chf-magenta: #E6007E;
+      --chf-magenta-dark: #B80064;
+      --chf-green: #00A86B;
+      --chf-green-dark: #008756;
+      --chf-mint: #70E2B8;
+      --chf-mint-light: #E8F9F3;
+      --chf-mint-border: #92E8C8;
+    }
+
+    * {
+      font-family: 'Fredoka', cursive, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    .font-chf {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 6px rgba(230,0,126,0.2)); }
+      50% { transform: scale(1.04); filter: drop-shadow(0 8px 15px rgba(230,0,126,0.35)); }
+    }
+    .pulse-chf {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    @keyframes happyStar {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.18) rotate(10deg); }
+    }
+    .star-anim {
+      animation: happyStar 2s infinite ease-in-out;
+    }
+
+    @keyframes bounceGently {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .float-gentle {
+      animation: bounceGently 2s infinite ease-in-out;
+    }
+
+    .btn-press {
+      transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-press:active {
+      transform: scale(0.94) translateY(2px);
+    }
+
+    /* Tablero vertical con diseño exacto de plantilla escolar */
+    .mat-tile {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 3.5px solid #8fe7c6;
+      background: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02), 0 2px 6px rgba(0, 168, 107, 0.08);
+    }
+
+    .mat-container {
+      background: #f1fcf7;
+      border: 4px solid #70e2b8;
+      border-radius: 1.75rem;
+      box-shadow: 0 8px 24px -5px rgba(0, 168, 107, 0.18), inset 0 2px 6px rgba(255,255,255,0.85);
+    }
+
+    /* Transición suave para rotación y traslación del robot */
+    .robot-sprite {
+      transition: transform 0.35s cubic-bezier(0.34, 1.45, 0.64, 1);
+      will-change: transform;
+    }
+
+    /* Scrollbars invisibles o estilizadas */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="bg-[#FAFCFB] text-slate-800 h-screen h-[100dvh] flex flex-col antialiased selection:bg-pink-200 overflow-hidden">
+
+  <!-- Header compacto fijo -->
+  <header class="w-full bg-white/95 backdrop-blur border-b-2 border-[#70E2B8] px-3 sm:px-5 py-1.5 flex items-center justify-between shadow-sm z-30 flex-shrink-0 h-13 md:h-14">
+    <!-- Logo CHF Robótica Educativa y Título -->
+    <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="app.showHome()">
+      <div class="w-9 h-9 md:w-11 md:h-11 relative flex items-center justify-center rounded-xl p-0.5 bg-white shadow-sm border border-slate-200 overflow-hidden flex-shrink-0">
+        <img src="LogoNuevo.png" alt="CHF Robótica Educativa" class="w-full h-full object-contain" onerror="this.style.display='none'; document.getElementById('chfSvgFallback').classList.remove('hidden');" />
+        <div id="chfSvgFallback" class="hidden w-full h-full flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-full h-full">
+            <circle cx="50" cy="38" r="32" fill="#E6007E" />
+            <circle cx="50" cy="38" r="22" fill="#ffffff" />
+            <circle cx="50" cy="38" r="14" fill="#00A86B" />
+            <circle cx="75" cy="20" r="12" fill="#00A86B" />
+            <circle cx="75" cy="20" r="6" fill="#ffffff" />
+            <path d="M 44 48 L 44 26 C 44 23 48 23 48 26 L 48 40 L 52 40 C 54 40 55 42 55 44 L 55 48 L 60 49 C 62 49 63 52 63 54 L 62 64 C 61 72 53 76 44 76 L 35 67 C 32 64 33 60 36 58 L 44 60 Z" fill="#E6007E" stroke="#ffffff" stroke-width="2" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="leading-none">
+        <div class="flex items-center gap-1.5">
+          <span class="font-chf font-black text-lg md:text-xl text-[#00A86B] tracking-tight">CHF</span>
+          <span class="text-[10px] md:text-xs font-extrabold text-[#E6007E] uppercase tracking-wider bg-pink-50 px-1.5 py-0.5 rounded border border-pink-200">Robótica Educativa</span>
+        </div>
+        <div class="flex items-center gap-1.5 mt-0.5">
+          <h1 class="text-xs md:text-sm font-bold text-slate-700">Misión llegada</h1>
+          <span id="currentModeLabel" class="text-[11px] font-bold text-emerald-700 hidden sm:inline-block">● Sala 4</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles de Nivel, Audio y Panel Docente -->
+    <div class="flex items-center gap-1.5 sm:gap-2">
+      <div id="levelBadge" class="hidden px-2.5 py-0.5 bg-emerald-50 border-2 border-[#70E2B8] rounded-xl text-[#008756] font-extrabold text-xs flex items-center gap-1 shadow-sm">
+        <span class="text-amber-400">⭐</span>
+        <span id="levelBadgeText">Misión 1</span>
+      </div>
+
+      <button id="mapReturnBtn" onclick="app.showLevelsMap()" class="hidden btn-press h-8 sm:h-9 px-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl flex items-center gap-1 text-slate-700 text-xs font-bold shadow-sm" title="Volver al mapa">
+        <span>🗺️</span>
+        <span class="hidden md:inline">Misiones</span>
+      </button>
+
+      <button id="soundToggleBtn" onclick="app.toggleSound()" class="btn-press w-8 h-8 sm:w-9 sm:h-9 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl flex items-center justify-center text-slate-700 shadow-sm" title="Activar o desactivar sonido">
+        <span id="soundIcon" class="text-base sm:text-lg">🔊</span>
+      </button>
+
+      <button onclick="app.openTeacherModal()" class="btn-press w-8 h-8 sm:w-9 sm:h-9 bg-[#E6007E]/10 hover:bg-[#E6007E]/20 border border-[#E6007E]/30 rounded-xl flex items-center justify-center text-[#E6007E] shadow-sm" title="Panel Docente">
+        <span class="text-base sm:text-lg">⚙️</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Adaptable Sin Scroll -->
+  <main class="flex-1 w-full h-[calc(100dvh-3.25rem)] overflow-hidden flex flex-col p-2 sm:p-3">
+
+    <!-- PANTALLA 1: BIENVENIDA & SELECCIÓN DE SALA -->
+    <section id="welcomeScreen" class="h-full w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center px-3 overflow-y-auto">
+      <div class="relative mb-3 sm:mb-4 flex flex-col items-center">
+        <div class="w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-emerald-100 via-white to-pink-100 rounded-full flex items-center justify-center shadow-xl border-4 border-[#70E2B8] p-2.5 pulse-chf">
+          <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+            <rect x="8" y="18" width="18" height="64" rx="7" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
+            <rect x="74" y="18" width="18" height="64" rx="7" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
+            <path d="M 8 28 L 26 28 M 8 40 L 26 40 M 8 52 L 26 52 M 8 64 L 26 64" stroke="#485460" stroke-width="2" />
+            <path d="M 74 28 L 92 28 M 74 40 L 92 40 M 74 52 L 92 52 M 74 64 L 92 64" stroke="#485460" stroke-width="2" />
+            <rect x="22" y="14" width="56" height="72" rx="22" fill="#0EA5E9" stroke="#0284C7" stroke-width="3" />
+            <line x1="50" y1="14" x2="50" y2="4" stroke="#0284C7" stroke-width="3" stroke-linecap="round" />
+            <circle cx="50" cy="4" r="4.5" fill="#F59E0B" />
+            <rect x="30" y="22" width="40" height="28" rx="12" fill="#0F172A" />
+            <circle cx="41" cy="33" r="4.5" fill="#FFFFFF" />
+            <circle cx="41" cy="32" r="2.5" fill="#0EA5E9" />
+            <circle cx="59" cy="33" r="4.5" fill="#FFFFFF" />
+            <circle cx="59" cy="32" r="2.5" fill="#0EA5E9" />
+            <path d="M 44 41 Q 50 46 56 41" stroke="#38BDF8" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path d="M 50 54 L 50 72" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" />
+            <path d="M 42 63 L 50 54 L 58 63" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="mt-1 bg-[#E6007E] text-white font-extrabold px-3 py-0.5 rounded-full text-[11px] shadow-sm border-2 border-white">
+          ¡Dale la mano a tus sueños!
+        </div>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-800 mb-1">Misión llegada</h2>
+      <p class="text-xs sm:text-sm font-medium text-slate-600 max-w-sm mb-4">
+        Orientación, recorridos espaciales y primeros pasos en programación de robots.
+      </p>
+
+      <div class="w-full max-w-sm grid grid-cols-1 sm:grid-cols-2 gap-3 justify-center">
+        <button onclick="app.selectGrade('sala4')" class="btn-press bg-white hover:bg-pink-50/60 border-3 border-[#E6007E] p-3.5 rounded-2xl shadow flex flex-col items-center gap-1 group">
+          <span class="text-3xl group-hover:scale-110 transition-transform">🐥</span>
+          <div class="text-lg font-black text-[#E6007E]">Sala de 4</div>
+          <span class="text-[10px] font-bold text-[#B80064] bg-pink-100/60 px-2 py-0.5 rounded-full">Recorridos guiados</span>
+        </button>
+
+        <button onclick="app.selectGrade('sala5')" class="btn-press bg-white hover:bg-emerald-50/60 border-3 border-[#00A86B] p-3.5 rounded-2xl shadow flex flex-col items-center gap-1 group">
+          <span class="text-3xl group-hover:scale-110 transition-transform">🚀</span>
+          <div class="text-lg font-black text-[#00A86B]">Sala de 5</div>
+          <span class="text-[10px] font-bold text-[#008756] bg-emerald-100/60 px-2 py-0.5 rounded-full">Giros y obstáculos</span>
+        </button>
+      </div>
+
+      <div class="mt-4 text-[11px] font-bold text-slate-400">
+        Propuesta pedagógica de Robótica Educativa CHF
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: MAPA DE MISIONES -->
+    <section id="levelsScreen" class="hidden h-full w-full max-w-4xl mx-auto flex flex-col justify-center items-center py-1">
+      <div class="w-full flex items-center justify-between mb-3 px-2">
+        <button onclick="app.showHome()" class="btn-press bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1 shadow-sm">
+          <span>🏠 Inicio</span>
+        </button>
+        <h2 id="levelsGradeTitle" class="text-base sm:text-xl font-black text-[#00A86B]">Elegí tu misión</h2>
+        <div class="w-14"></div>
+      </div>
+
+      <div id="levelsGridContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-2xl px-2 my-auto">
+        <!-- Generado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: ARENA DE JUEGO (TODO A LA VISTA EN 1 SOLA PANTALLA) -->
+    <section id="gameScreen" class="hidden h-full w-full max-w-7xl mx-auto flex flex-col md:flex-row items-stretch justify-center gap-3 sm:gap-6 overflow-hidden px-1 sm:px-3">
+      
+      <!-- COLUMNA IZQUIERDA: Tablero Vertical ampliado y centrado proporcionalmente -->
+      <div class="flex-[1.1] flex items-center justify-center p-1 min-h-0 h-[48%] md:h-full">
+        <div id="boardWrapper" class="mat-container p-2.5 sm:p-4 relative flex items-center justify-center shadow-md max-h-full max-w-full">
+          <div id="boardGrid" class="grid gap-2 sm:gap-2.5 relative">
+            <!-- Celdas inyectadas por JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: Consigna, Cinta de Fichas, Teclado de Flechas y Acciones -->
+      <div class="flex-1 max-w-2xl flex flex-col justify-between p-1 min-h-0 h-[52%] md:h-full gap-2 sm:gap-2.5 overflow-hidden mx-auto w-full">
+        
+        <!-- 1. Fila de Consigna y Ayuda -->
+        <div class="w-full bg-white border-2 border-[#92E8C8] rounded-2xl p-2 shadow-sm flex items-center justify-between gap-2 flex-shrink-0">
+          <div class="flex items-center gap-2 min-w-0">
+            <button id="listenPromptBtn" onclick="app.speakCurrentPrompt()" class="btn-press w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 hover:bg-emerald-100 border border-[#70E2B8] rounded-xl flex items-center justify-center text-[#00A86B] flex-shrink-0 shadow-sm" title="Escuchar la consigna">
+              <span class="text-xl sm:text-2xl">🗣️</span>
+            </button>
+            <div class="truncate">
+              <h3 id="gameMissionTitle" class="font-extrabold text-slate-800 text-xs sm:text-sm truncate">Misión 1: Llegamos a la meta</h3>
+              <p id="gameMissionSubtitle" class="text-[11px] sm:text-xs text-slate-600 truncate font-medium">Elegí la flecha para que el robot avance hacia la estrella.</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <button id="hintBtn" onclick="app.showHint()" class="btn-press bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold px-2.5 py-1.5 rounded-xl flex items-center gap-1 text-xs shadow-sm">
+              <span class="text-sm">💡</span>
+              <span class="hidden sm:inline">Pista</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Banner de Estado Dinámico compacto -->
+        <div id="inlineStatusBanner" class="hidden w-full py-1 px-2.5 rounded-xl text-center font-bold text-xs flex-shrink-0 transition-all"></div>
+
+        <!-- 2. Cinta de Instrucciones / Programa en Fichas -->
+        <div class="w-full bg-[#E8F9F3] border-2 border-[#92E8C8] rounded-2xl p-2 shadow-sm flex flex-col gap-1 flex-shrink-0">
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-600 px-0.5">
+            <span class="flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-[#E6007E]"></span>
+              PROGRAMA DE PASOS:
+            </span>
+            <span id="instructionCountBadge" class="text-[#008756] bg-white px-1.5 py-0.5 rounded border border-[#92E8C8]">0 pasos</span>
+          </div>
+          
+          <div id="commandTape" class="flex items-center gap-1.5 min-h-[50px] sm:min-h-[58px] overflow-x-auto p-1 bg-white rounded-xl border border-[#92E8C8]/60">
+            <div id="emptyTapeNotice" class="text-xs font-medium text-slate-400 italic px-2">
+              Tocá las flechas de abajo para armar el camino...
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Teclado de Flechas Tipo Codit (Bien grande, centrado y visible) -->
+        <div class="w-full flex-1 flex flex-col justify-center gap-1.5 sm:gap-2">
+          <div class="grid grid-cols-4 gap-1.5 sm:gap-2 w-full">
+            <!-- Adelante -->
+            <button id="cmdFwd" onclick="app.addCommand('FORWARD')" class="btn-press h-13 sm:h-16 md:h-18 bg-[#00A86B] hover:bg-[#00925d] border-b-4 border-[#006e46] rounded-2xl flex flex-col items-center justify-center text-white shadow-md" title="Avanzar adelante">
+              <span class="text-xl sm:text-2xl leading-none">⬆️</span>
+              <span class="text-[9px] sm:text-[10px] font-black mt-0.5">ADELANTE</span>
+            </button>
+
+            <!-- Izquierda -->
+            <button id="cmdTurnL" onclick="app.addCommand('TURN_LEFT')" class="btn-press h-13 sm:h-16 md:h-18 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 border-[#B45309] rounded-2xl flex flex-col items-center justify-center text-amber-950 shadow-md" title="Girar a la izquierda">
+              <span class="text-xl sm:text-2xl leading-none">↩️</span>
+              <span class="text-[9px] sm:text-[10px] font-black mt-0.5">IZQUIERDA</span>
+            </button>
+
+            <!-- Derecha -->
+            <button id="cmdTurnR" onclick="app.addCommand('TURN_RIGHT')" class="btn-press h-13 sm:h-16 md:h-18 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 border-[#B45309] rounded-2xl flex flex-col items-center justify-center text-amber-950 shadow-md" title="Girar a la derecha">
+              <span class="text-xl sm:text-2xl leading-none">↪️</span>
+              <span class="text-[9px] sm:text-[10px] font-black mt-0.5">DERECHA</span>
+            </button>
+
+            <!-- Atrás -->
+            <button id="cmdBwd" onclick="app.addCommand('BACKWARD')" class="btn-press h-13 sm:h-16 md:h-18 bg-[#EA580C] hover:bg-[#C2410C] border-b-4 border-[#9A3412] rounded-2xl flex flex-col items-center justify-center text-white shadow-md" title="Retroceder">
+              <span class="text-xl sm:text-2xl leading-none">⬇️</span>
+              <span class="text-[9px] sm:text-[10px] font-black mt-0.5">ATRÁS</span>
+            </button>
+          </div>
+
+          <!-- 4. Barra de Acciones: Borrar, Limpiar y Gran Botón PROBAR -->
+          <div class="flex items-center gap-1.5 sm:gap-2 w-full">
+            <button onclick="app.deleteLastCommand()" class="btn-press w-16 sm:w-20 h-11 sm:h-13 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 rounded-xl flex flex-col items-center justify-center text-[#E6007E] shadow-sm flex-shrink-0" title="Borrar último paso">
+              <span class="text-base sm:text-lg leading-none">⌫</span>
+              <span class="text-[9px] font-bold">BORRAR</span>
+            </button>
+
+            <button onclick="app.clearCommands()" class="btn-press w-16 sm:w-20 h-11 sm:h-13 bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-600 shadow-sm flex-shrink-0" title="Limpiar todo">
+              <span class="text-base sm:text-lg leading-none">🗑️</span>
+              <span class="text-[9px] font-bold">LIMPIAR</span>
+            </button>
+
+            <button id="btnExecute" onclick="app.executeProgram()" class="btn-press flex-1 h-11 sm:h-13 bg-gradient-to-r from-[#00A86B] to-[#00BF72] hover:from-[#00925d] hover:to-[#00A86B] border-b-4 border-[#006e46] rounded-xl flex items-center justify-center gap-2 text-white font-black text-sm sm:text-base shadow-lg" title="Poner en marcha el robot">
+              <span class="text-xl sm:text-2xl">▶️</span>
+              <span id="btnExecuteText">PROBAR</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL DE ÉXITO Y CELEBRACIÓN -->
+  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-[#00A86B] max-w-sm w-full p-6 text-center shadow-2xl flex flex-col items-center">
+      <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-5xl mb-3 star-anim">
+        ⭐
+      </div>
+      <div class="font-chf font-black text-2xl text-[#00A86B] mb-1">¡Misión cumplida!</div>
+      <p id="successDesc" class="text-slate-600 text-sm font-medium mb-5">El robot llegó a la meta con éxito. ¡Gran trabajo en equipo!</p>
+      
+      <div class="flex gap-3 w-full">
+        <button onclick="app.replayCurrentLevel()" class="btn-press flex-1 py-3 bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 rounded-2xl font-bold text-slate-700 text-sm">
+          ↩️ Repetir
+        </button>
+        <button onclick="app.nextLevel()" class="btn-press flex-1 py-3 bg-[#E6007E] hover:bg-[#B80064] text-white rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-1.5">
+          <span>Siguiente</span>
+          <span>➡️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PEDAGÓGICO DE INTENTO (SIN CASTIGOS) -->
+  <div id="retryModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-[#E6007E] max-w-sm w-full p-6 text-center shadow-2xl flex flex-col items-center">
+      <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center text-5xl mb-3 float-gentle">
+        🤔
+      </div>
+      <div class="font-chf font-black text-2xl text-[#E6007E] mb-1">¡Casi casi!</div>
+      <p id="retryDesc" class="text-slate-600 text-sm font-medium mb-5">¿Qué flecha podemos cambiar para llegar a la meta? ¡Probemos otro camino!</p>
+      
+      <div class="flex gap-3 w-full">
+        <button onclick="app.closeRetryModal()" class="btn-press flex-1 py-3 bg-gradient-to-r from-[#00A86B] to-[#70E2B8] hover:opacity-95 text-white rounded-2xl font-black text-sm shadow-md">
+          💪 ¡Quiero probar otra vez!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PANEL DOCENTE CHF -->
+  <div id="teacherModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl border-4 border-[#70E2B8] max-w-md w-full p-6 text-left shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">👩‍🏫</span>
+          <div>
+            <h3 class="font-chf font-black text-lg text-slate-800">Panel para Docentes</h3>
+            <p class="text-xs text-[#00A86B] font-bold">CHF Robótica Educativa</p>
+          </div>
+        </div>
+        <button onclick="app.closeTeacherModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center font-bold text-slate-500">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-700">
+        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-2xl">
+          <p class="font-bold text-[#008756]">Enfoque Didáctico:</p>
+          <p class="text-xs text-slate-600 mt-1">
+            Plantilla vertical de suelo para nivel inicial. Permite anticipación visual sin cronómetros ni penalizaciones. Basado en el robot Codit.
+          </p>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1.5 text-xs text-slate-500 uppercase tracking-wider">Cambiar de Sala:</label>
+          <div class="flex gap-2">
+            <button onclick="app.setGradeFromTeacher('sala4')" class="flex-1 py-2 rounded-xl border-2 border-[#E6007E] bg-pink-50 font-black text-[#E6007E] hover:bg-pink-100">
+              Sala de 4
+            </button>
+            <button onclick="app.setGradeFromTeacher('sala5')" class="flex-1 py-2 rounded-xl border-2 border-[#00A86B] bg-emerald-50 font-black text-[#00A86B] hover:bg-emerald-100">
+              Sala de 5
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1.5 text-xs text-slate-500 uppercase tracking-wider">Saltar a cualquier nivel:</label>
+          <div id="teacherLevelList" class="grid grid-cols-4 gap-2">
+            <!-- Inyectado dinámicamente -->
+          </div>
+        </div>
+
+        <div class="border-t pt-3 flex flex-col gap-2">
+          <button onclick="app.resetProgress()" class="w-full py-2 bg-pink-50 hover:bg-pink-100 border border-pink-300 text-[#E6007E] rounded-xl font-bold text-xs">
+            🔄 Reiniciar progreso de estrellas
+          </button>
+          <button onclick="app.unlockAllLevels()" class="w-full py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[#00A86B] rounded-xl font-bold text-xs">
+            🔓 Desbloquear todos los niveles para taller
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Sintetizador de audio nativo Web Audio API (seguro, sin URLs externas) */
+    class SoundEffects {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+
+      initContext() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playTone(freq, duration, type = 'sine', gainVal = 0.18) {
+        if (!this.enabled) return;
+        try {
+          this.initContext();
+          if (!this.ctx) return;
+
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          console.warn('Audio tone err', e);
+        }
+      }
+
+      playClick() {
+        this.playTone(520, 0.08, 'triangle', 0.15);
+      }
+
+      playAddCommand() {
+        this.playTone(680, 0.1, 'sine', 0.2);
+      }
+
+      playStep() {
+        this.playTone(340, 0.12, 'square', 0.12);
+      }
+
+      playTurn() {
+        this.playTone(580, 0.15, 'sine', 0.18);
+      }
+
+      playSuccess() {
+        if (!this.enabled) return;
+        const notes = [440, 554, 659, 880];
+        notes.forEach((f, idx) => {
+          setTimeout(() => this.playTone(f, 0.25, 'triangle', 0.2), idx * 110);
+        });
+      }
+
+      playDoubt() {
+        if (!this.enabled) return;
+        this.playTone(300, 0.22, 'sawtooth', 0.15);
+        setTimeout(() => this.playTone(240, 0.32, 'sawtooth', 0.15), 200);
+      }
+    }
+
+    class VoiceCoach {
+      constructor() {
+        this.synth = window.speechSynthesis || null;
+        this.enabled = true;
+        this.voices = [];
+        this.bestVoice = null;
+        this.loadVoices();
+
+        if (this.synth && this.synth.onvoiceschanged !== undefined) {
+          this.synth.onvoiceschanged = () => this.loadVoices();
+        }
+      }
+
+      loadVoices() {
+        if (!this.synth) return;
+        try {
+          this.voices = this.synth.getVoices() || [];
+          if (this.voices.length === 0) return;
+
+          let match = this.voices.find(v => 
+            (v.lang.startsWith('es') || v.lang.includes('ES') || v.lang.includes('419')) &&
+            (v.name.toLowerCase().includes('natural') || 
+             v.name.toLowerCase().includes('neural') || 
+             v.name.toLowerCase().includes('online') ||
+             v.name.toLowerCase().includes('google') ||
+             v.name.toLowerCase().includes('paulina') ||
+             v.name.toLowerCase().includes('luciana') ||
+             v.name.toLowerCase().includes('monica'))
+          );
+
+          if (!match) {
+            match = this.voices.find(v => v.lang.startsWith('es-AR') || v.lang.startsWith('es-419') || v.lang.startsWith('es-MX'));
+          }
+
+          if (!match) {
+            match = this.voices.find(v => v.lang.startsWith('es'));
+          }
+
+          this.bestVoice = match || null;
+        } catch (e) {
+          console.warn('Voices load error', e);
+        }
+      }
+
+      speak(text) {
+        if (!this.enabled || !this.synth) return;
+        try {
+          this.synth.cancel();
+          if (!this.bestVoice) this.loadVoices();
+
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'es-AR';
+          utterance.pitch = 1.0; 
+          utterance.rate = 0.92;
+          utterance.volume = 1.0;
+
+          if (this.bestVoice) {
+            utterance.voice = this.bestVoice;
+          }
+
+          this.synth.speak(utterance);
+        } catch (err) {
+          console.warn('SpeechSynthesis err', err);
+        }
+      }
+
+      stop() {
+        if (this.synth) this.synth.cancel();
+      }
+    }
+
+    /* Configuraciones de Niveles en PLANTILLAS VERTICALES (Orientación de frente al robot) */
+    const GAME_CONFIG = {
+      sala4: {
+        title: "Sala de 4 años",
+        levels: [
+          {
+            id: 1,
+            name: "Llegamos a la meta",
+            subtitle: "Un paso al frente hacia la estrella.",
+            speech: "¡Hola! Tocá la flecha hacia adelante para que el robot llegue a la estrella.",
+            cols: 3,
+            rows: 4, // Formato vertical como en la foto
+            start: { x: 1, y: 2, dir: 'N' }, // N apunta hacia arriba (adelante)
+            goal: { x: 1, y: 1 },
+            obstacles: [],
+            availableCommands: ['FORWARD'],
+            maxCommands: 1,
+            type: 'standard',
+            hint: "Tocá la flecha verde ADELANTE para avanzar un casillero."
+          },
+          {
+            id: 2,
+            name: "Un paso, otro paso",
+            subtitle: "Contamos y damos 2 pasos adelante.",
+            speech: "El robot necesita dar dos pasos hacia la estrella. Poné dos flechas adelante.",
+            cols: 3,
+            rows: 4,
+            start: { x: 1, y: 3, dir: 'N' },
+            goal: { x: 1, y: 1 },
+            obstacles: [],
+            availableCommands: ['FORWARD'],
+            maxCommands: 2,
+            type: 'standard',
+            hint: "Contá cuántos casilleros hay hasta la estrella: uno, dos."
+          },
+          {
+            id: 3,
+            name: "¿Hacia dónde giramos?",
+            subtitle: "Avanzá y girá hacia la derecha.",
+            speech: "El robot tiene que avanzar y doblar. ¿Hacia dónde mira la estrella?",
+            cols: 3,
+            rows: 4,
+            start: { x: 0, y: 2, dir: 'N' },
+            goal: { x: 1, y: 1 },
+            obstacles: [],
+            availableCommands: ['FORWARD', 'TURN_RIGHT'],
+            maxCommands: 3,
+            type: 'standard',
+            hint: "Avanzá hacia arriba, girá a la derecha y avanzá un casillero."
+          },
+          {
+            id: 4,
+            name: "El camino tiene un charco",
+            subtitle: "Esquivá el agua para no mojar las orugas.",
+            speech: "¡Hay un charco de agua! Doblemos para pasar seguros hacia la estrella.",
+            cols: 3,
+            rows: 4,
+            start: { x: 1, y: 3, dir: 'N' },
+            goal: { x: 1, y: 0 },
+            obstacles: [{ x: 1, y: 2, type: 'water' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 5,
+            type: 'standard',
+            hint: "Doblá a la izquierda o derecha para rodear el charquito."
+          },
+          {
+            id: 5,
+            name: "Primero pienso, después programo",
+            subtitle: "Pensá todo el camino antes de probar.",
+            speech: "Mirá bien el tablero, armá toda la tira de flechas y después presioná Probar.",
+            cols: 4,
+            rows: 4,
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 2, y: 1 },
+            obstacles: [{ x: 1, y: 2, type: 'tree' }],
+            availableCommands: ['FORWARD', 'TURN_RIGHT', 'TURN_LEFT'],
+            maxCommands: 5,
+            type: 'standard',
+            hint: "Avanzá dos veces hacia arriba, girá a la derecha y avanzá."
+          },
+          {
+            id: 6,
+            name: "Encontrá el error",
+            subtitle: "Hay una flechita al revés. ¿Cuál será?",
+            speech: "¡Algo salió diferente! Mirá las flechas de la tira. Una está equivocada.",
+            cols: 3,
+            rows: 4,
+            start: { x: 1, y: 3, dir: 'N' },
+            goal: { x: 1, y: 1 },
+            obstacles: [],
+            availableCommands: ['FORWARD', 'BACKWARD'],
+            presetCommands: ['FORWARD', 'BACKWARD'], // Error intencional
+            maxCommands: 2,
+            type: 'debug',
+            hint: "El robot necesita avanzar dos veces hacia adelante, no retroceder."
+          },
+          {
+            id: 7,
+            name: "Más de un camino",
+            subtitle: "Podés ir por la izquierda o por la derecha.",
+            speech: "¡Hay dos caminos posibles! Elegí el que más te guste para llegar.",
+            cols: 3,
+            rows: 4,
+            start: { x: 1, y: 3, dir: 'N' },
+            goal: { x: 1, y: 1 },
+            obstacles: [{ x: 1, y: 2, type: 'rock' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 5,
+            type: 'multiple',
+            hint: "Podés esquivar la piedra por la izquierda o por la derecha. ¡Ambas sirven!"
+          },
+          {
+            id: 8,
+            name: "El desafío final de Sala 4",
+            subtitle: "Esquivá los obstáculos y alcanzá la estrella.",
+            speech: "¡Gran desafío final! Guiá a Codit esquivando el charco y la roca.",
+            cols: 4,
+            rows: 4,
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 2, y: 0 },
+            obstacles: [{ x: 1, y: 2, type: 'rock' }, { x: 2, y: 2, type: 'water' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 6,
+            type: 'standard',
+            hint: "Subí por la columna izquierda y doblá hacia la derecha arriba de todo."
+          }
+        ]
+      },
+      sala5: {
+        title: "Sala de 5 años",
+        levels: [
+          {
+            id: 1,
+            name: "Llegamos a la meta",
+            subtitle: "Avanzá con precisión hacia la meta.",
+            speech: "Observá la orientación del robot y poné las flechas necesarias.",
+            cols: 3,
+            rows: 5,
+            start: { x: 1, y: 4, dir: 'N' },
+            goal: { x: 1, y: 2 },
+            obstacles: [],
+            availableCommands: ['FORWARD'],
+            maxCommands: 2,
+            type: 'standard',
+            hint: "Necesitás dos pasos hacia adelante."
+          },
+          {
+            id: 2,
+            name: "Un paso, otro paso",
+            subtitle: "Conteo y anticipación de trayecto vertical.",
+            speech: "Contá los casilleros que faltan y programá el recorrido exacto.",
+            cols: 3,
+            rows: 5,
+            start: { x: 1, y: 4, dir: 'N' },
+            goal: { x: 1, y: 1 },
+            obstacles: [],
+            availableCommands: ['FORWARD'],
+            maxCommands: 3,
+            type: 'standard',
+            hint: "El robot debe dar exactamente 3 pasos al frente."
+          },
+          {
+            id: 3,
+            name: "¿Hacia dónde giramos?",
+            subtitle: "Giros a derecha e izquierda.",
+            speech: "Atención a la orientación del robot. ¿Hacia qué lado debe girar para llegar?",
+            cols: 4,
+            rows: 5,
+            start: { x: 1, y: 4, dir: 'N' },
+            goal: { x: 3, y: 2 },
+            obstacles: [],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 5,
+            type: 'standard',
+            hint: "Subí dos pasos, girá a la derecha y avanzá dos casillas más."
+          },
+          {
+            id: 4,
+            name: "El camino tiene obstáculos",
+            subtitle: "Esquivá el árbol y las piedras.",
+            speech: "Hay obstáculos en el camino. Busquemos un recorrido seguro para Codit.",
+            cols: 4,
+            rows: 5,
+            start: { x: 0, y: 4, dir: 'N' },
+            goal: { x: 2, y: 1 },
+            obstacles: [{ x: 1, y: 3, type: 'tree' }, { x: 1, y: 2, type: 'rock' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 7,
+            type: 'standard',
+            hint: "Avanzá recto por la columna cero y luego girá a la derecha."
+          },
+          {
+            id: 5,
+            name: "Primero pienso, después programo",
+            subtitle: "Planificación completa de algoritmo.",
+            speech: "Trazá el recorrido con la mirada antes de colocar las fichas. Luego ejecutamos.",
+            cols: 4,
+            rows: 5,
+            start: { x: 0, y: 4, dir: 'N' },
+            goal: { x: 3, y: 1 },
+            obstacles: [{ x: 1, y: 4, type: 'water' }, { x: 2, y: 2, type: 'tree' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 8,
+            type: 'standard',
+            hint: "Subí por la izquierda, doblá a la derecha por la fila superior libre."
+          },
+          {
+            id: 6,
+            name: "Encontrá el error",
+            subtitle: "Depurá la secuencia para no chocar.",
+            speech: "¡Algo salió diferente! Esta secuencia dirige al robot hacia el obstáculo. Cambiá la flecha.",
+            cols: 4,
+            rows: 5,
+            start: { x: 1, y: 4, dir: 'N' },
+            goal: { x: 3, y: 2 },
+            obstacles: [{ x: 1, y: 2, type: 'water' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            presetCommands: ['FORWARD', 'TURN_LEFT', 'FORWARD'], // Secuencia con error
+            maxCommands: 6,
+            type: 'debug',
+            hint: "El robot giró hacia la izquierda cuando debía doblar hacia la derecha."
+          },
+          {
+            id: 7,
+            name: "Más de un camino",
+            subtitle: "Múltiples trayectorias equivalentes.",
+            speech: "Existen diferentes maneras de alcanzar la meta. ¡Diseñá tu propia solución!",
+            cols: 4,
+            rows: 5,
+            start: { x: 1, y: 4, dir: 'N' },
+            goal: { x: 1, y: 0 },
+            obstacles: [{ x: 1, y: 2, type: 'rock' }, { x: 2, y: 2, type: 'tree' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 8,
+            type: 'multiple',
+            hint: "Podés rodear el obstáculo por el pasillo de la izquierda."
+          },
+          {
+            id: 8,
+            name: "El gran desafío final de Sala 5",
+            subtitle: "Tablero vertical complejo con múltiples giros.",
+            speech: "¡Llegamos al gran desafío de Robótica Educativa! Esquivá todo y alcanzá la estrella dorada.",
+            cols: 4,
+            rows: 5,
+            start: { x: 0, y: 4, dir: 'N' },
+            goal: { x: 3, y: 0 },
+            obstacles: [
+              { x: 1, y: 3, type: 'water' },
+              { x: 2, y: 2, type: 'tree' },
+              { x: 1, y: 1, type: 'rock' }
+            ],
+            availableCommands: ['FORWARD', 'BACKWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 9,
+            type: 'standard',
+            hint: "Subí, girá al este, continuá en zigzag hasta la esquina superior."
+          }
+        ]
+      }
+    };
+
+    class MissionGame {
+      constructor() {
+        this.sfx = new SoundEffects();
+        this.voice = new VoiceCoach();
+        this.currentGrade = 'sala4';
+        this.currentLevelIndex = 0;
+        this.progress = {
+          sala4: [1],
+          sala5: [1]
+        };
+
+        this.robotState = {
+          x: 1,
+          y: 2,
+          dir: 'N'
+        };
+
+        this.commands = [];
+        this.isRunning = false;
+        this.loadProgress();
+      }
+
+      init() {
+        this.renderGradeTitle();
+        this.showHome();
+      }
+
+      loadProgress() {
+        try {
+          const saved = localStorage.getItem('chf_mision_prog');
+          if (saved) {
+            this.progress = JSON.parse(saved);
+          }
+        } catch (e) {}
+      }
+
+      saveProgress() {
+        try {
+          localStorage.setItem('chf_mision_prog', JSON.stringify(this.progress));
+        } catch (e) {}
+      }
+
+      toggleSound() {
+        const soundBtn = document.getElementById('soundIcon');
+        this.sfx.enabled = !this.sfx.enabled;
+        this.voice.enabled = this.sfx.enabled;
+        if (this.sfx.enabled) {
+          soundBtn.textContent = '🔊';
+          this.sfx.playClick();
+        } else {
+          soundBtn.textContent = '🔇';
+          this.voice.stop();
+        }
+      }
+
+      selectGrade(grade) {
+        this.currentGrade = grade;
+        this.sfx.playClick();
+        this.renderGradeTitle();
+        this.showLevelsMap();
+      }
+
+      renderGradeTitle() {
+        const label = document.getElementById('currentModeLabel');
+        const mapTitle = document.getElementById('levelsGradeTitle');
+        const text = this.currentGrade === 'sala4' ? '● Sala de 4 años 🐥' : '● Sala de 5 años 🚀';
+        if (label) label.textContent = text;
+        if (mapTitle) {
+          mapTitle.textContent = this.currentGrade === 'sala4' ? 'Misiones Sala de 4' : 'Misiones Sala de 5';
+          mapTitle.className = this.currentGrade === 'sala4' ? 'text-lg sm:text-2xl font-black text-[#E6007E]' : 'text-lg sm:text-2xl font-black text-[#00A86B]';
+        }
+      }
+
+      showHome() {
+        this.voice.stop();
+        this.isRunning = false;
+        document.getElementById('welcomeScreen').classList.remove('hidden');
+        document.getElementById('levelsScreen').classList.add('hidden');
+        document.getElementById('gameScreen').classList.add('hidden');
+        document.getElementById('levelBadge').classList.add('hidden');
+        const mapBtn = document.getElementById('mapReturnBtn');
+        if (mapBtn) mapBtn.classList.add('hidden');
+      }
+
+      showLevelsMap() {
+        this.voice.stop();
+        this.isRunning = false;
+        document.getElementById('welcomeScreen').classList.add('hidden');
+        document.getElementById('levelsScreen').classList.remove('hidden');
+        document.getElementById('gameScreen').classList.add('hidden');
+        document.getElementById('levelBadge').classList.add('hidden');
+        const mapBtn = document.getElementById('mapReturnBtn');
+        if (mapBtn) mapBtn.classList.add('hidden');
+        this.renderLevelsGrid();
+      }
+
+      renderLevelsGrid() {
+        const container = document.getElementById('levelsGridContainer');
+        container.innerHTML = '';
+        const levels = GAME_CONFIG[this.currentGrade].levels;
+        const unlocked = this.progress[this.currentGrade] || [1];
+
+        levels.forEach((lvl, idx) => {
+          const isUnlocked = unlocked.includes(lvl.id);
+          const isCompleted = unlocked.includes(lvl.id + 1);
+
+          const card = document.createElement('button');
+          const isSala4 = this.currentGrade === 'sala4';
+          const activeBorder = isSala4 ? 'border-[#E6007E] hover:border-pink-500' : 'border-[#00A86B] hover:border-emerald-500';
+
+          card.className = `btn-press p-3.5 sm:p-4 rounded-3xl border-3 sm:border-4 flex flex-col items-center justify-center gap-1.5 shadow-md relative transition-all ${
+            isUnlocked 
+              ? `bg-white ${activeBorder} cursor-pointer` 
+              : 'bg-slate-100 border-slate-200 opacity-50 cursor-not-allowed'
+          }`;
+
+          if (isUnlocked) {
+            card.onclick = () => this.startLevel(idx);
+          }
+
+          let icon = '🔒';
+          if (isCompleted) icon = '⭐';
+          else if (isUnlocked) icon = '🚀';
+
+          card.innerHTML = `
+            <span class="text-3xl sm:text-4xl">${icon}</span>
+            <div class="font-extrabold text-slate-800 text-xs sm:text-sm">Misión ${lvl.id}</div>
+            <div class="text-[10px] sm:text-[11px] text-slate-500 line-clamp-1 font-medium">${lvl.name}</div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      startLevel(levelIndex) {
+        this.currentLevelIndex = levelIndex;
+        const levelData = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+
+        document.getElementById('welcomeScreen').classList.add('hidden');
+        document.getElementById('levelsScreen').classList.add('hidden');
+        document.getElementById('gameScreen').classList.remove('hidden');
+
+        const levelBadge = document.getElementById('levelBadge');
+        levelBadge.classList.remove('hidden');
+        const mapBtn = document.getElementById('mapReturnBtn');
+        if (mapBtn) mapBtn.classList.remove('hidden');
+        document.getElementById('levelBadgeText').textContent = `Misión ${levelData.id}`;
+        document.getElementById('gameMissionTitle').textContent = `Misión ${levelData.id}: ${levelData.name}`;
+        document.getElementById('gameMissionSubtitle').textContent = levelData.subtitle;
+
+        this.commands = [];
+        if (levelData.presetCommands) {
+          this.commands = [...levelData.presetCommands];
+        }
+
+        this.updateAvailableButtons(levelData.availableCommands);
+        this.robotState = { ...levelData.start };
+        this.isRunning = false;
+
+        this.setRobotExpression('idle');
+        this.renderBoard();
+        this.renderTape();
+        this.updateExecuteButton();
+
+        setTimeout(() => {
+          this.speakCurrentPrompt();
+        }, 300);
+      }
+
+      speakCurrentPrompt() {
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        if (lvl && lvl.speech) {
+          this.voice.speak(lvl.speech);
+        }
+      }
+
+      updateAvailableButtons(allowed) {
+        const btns = {
+          FORWARD: document.getElementById('cmdFwd'),
+          BACKWARD: document.getElementById('cmdBwd'),
+          TURN_LEFT: document.getElementById('cmdTurnL'),
+          TURN_RIGHT: document.getElementById('cmdTurnR')
+        };
+
+        Object.keys(btns).forEach(key => {
+          const btn = btns[key];
+          if (allowed.includes(key)) {
+            btn.classList.remove('opacity-25', 'pointer-events-none');
+          } else {
+            btn.classList.add('opacity-25', 'pointer-events-none');
+          }
+        });
+      }
+
+      renderBoard() {
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        const grid = document.getElementById('boardGrid');
+        const wrapper = document.getElementById('boardWrapper');
+        if (!grid || !wrapper) return;
+        grid.innerHTML = '';
+
+        grid.style.gridTemplateColumns = `repeat(${lvl.cols}, minmax(0, 1fr))`;
+
+        // Medir el espacio disponible real dentro del contenedor del tablero
+        const parentEl = wrapper.parentElement;
+        const parentRect = parentEl ? parentEl.getBoundingClientRect() : wrapper.getBoundingClientRect();
+        
+        // Descontar padding y bordes para cálculo preciso
+        const availableW = Math.max((parentRect.width || 300) - 36, 180);
+        const availableH = Math.max((parentRect.height || 400) - 36, 180);
+
+        const gapSize = 10;
+        const cellSizeByW = Math.floor((availableW - (lvl.cols - 1) * gapSize) / lvl.cols);
+        const cellSizeByH = Math.floor((availableH - (lvl.rows - 1) * gapSize) / lvl.rows);
+        
+        // Límite ampliado de 88px a 140px para aprovechar generosamente la pantalla
+        const targetSize = Math.min(cellSizeByW, cellSizeByH, 140);
+        const finalSize = Math.max(targetSize, 48); // Asegurar tamaño mínimo para interactividad táctil
+
+        // Generar celdas verticales redondeadas
+        for (let y = 0; y < lvl.rows; y++) {
+          for (let x = 0; x < lvl.cols; x++) {
+            const cell = document.createElement('div');
+            cell.id = `cell-${x}-${y}`;
+            cell.style.width = `${finalSize}px`;
+            cell.style.height = `${finalSize}px`;
+            cell.className = `mat-tile flex items-center justify-center relative select-none`;
+
+            // Estrella meta pedagógica
+            if (lvl.goal.x === x && lvl.goal.y === y) {
+              cell.innerHTML = `
+                <div class="star-anim flex items-center justify-center drop-shadow-md w-full h-full p-2">
+                  <svg viewBox="0 0 100 100" class="w-full h-full max-w-[85%] max-h-[85%]">
+                    <path d="M 50 10 L 62 36 L 90 38 L 68 56 L 75 84 L 50 68 L 25 84 L 32 56 L 10 38 L 38 36 Z" 
+                          fill="#F6D365" stroke="#E3B330" stroke-width="4" stroke-linejoin="round" />
+                    <circle cx="44" cy="38" r="4" fill="#FFFFFF" opacity="0.7" />
+                  </svg>
+                </div>`;
+            }
+
+            // Obstáculos físicos del robot de suelo
+            const obs = lvl.obstacles.find(o => o.x === x && o.y === y);
+            if (obs) {
+              let icon = '🧱';
+              if (obs.type === 'tree') icon = '🌳';
+              if (obs.type === 'water') icon = '💧';
+              if (obs.type === 'rock') icon = '🪨';
+              cell.innerHTML = `<span class="text-3xl sm:text-4xl filter drop-shadow select-none">${icon}</span>`;
+            }
+
+            grid.appendChild(cell);
+          }
+        }
+
+        this.renderRobotOnBoard();
+      }
+
+      renderRobotOnBoard() {
+        document.querySelectorAll('.robot-token').forEach(el => el.remove());
+
+        const targetCell = document.getElementById(`cell-${this.robotState.x}-${this.robotState.y}`);
+        if (!targetCell) return;
+
+        const token = document.createElement('div');
+        token.className = 'robot-token absolute inset-0 flex items-center justify-center pointer-events-none p-1 z-10';
+
+        // Norte = 0° (apunta hacia adelante / arriba en la plantilla vertical)
+        // Este = 90° (derecha), Sur = 180° (abajo), Oeste = 270° (izquierda)
+        const angles = { 'N': 0, 'E': 90, 'S': 180, 'W': 270 };
+        const rot = angles[this.robotState.dir] ?? 0;
+
+        token.innerHTML = `
+          <div class="robot-sprite w-full h-full flex items-center justify-center" style="transform: rotate(${rot}deg);">
+            <svg viewBox="0 0 100 100" class="w-full h-full max-w-[90%] max-h-[90%] drop-shadow-md">
+              <!-- Orugas laterales oscuras -->
+              <rect x="8" y="16" width="18" height="68" rx="8" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
+              <rect x="74" y="16" width="18" height="68" rx="8" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
+              <!-- Estrías de tracción -->
+              <line x1="8" y1="26" x2="26" y2="26" stroke="#485460" stroke-width="2.5" />
+              <line x1="8" y1="38" x2="26" y2="38" stroke="#485460" stroke-width="2.5" />
+              <line x1="8" y1="50" x2="26" y2="50" stroke="#485460" stroke-width="2.5" />
+              <line x1="8" y1="62" x2="26" y2="62" stroke="#485460" stroke-width="2.5" />
+              <line x1="8" y1="74" x2="26" y2="74" stroke="#485460" stroke-width="2.5" />
+              <line x1="74" y1="26" x2="92" y2="26" stroke="#485460" stroke-width="2.5" />
+              <line x1="74" y1="38" x2="92" y2="38" stroke="#485460" stroke-width="2.5" />
+              <line x1="74" y1="50" x2="92" y2="50" stroke="#485460" stroke-width="2.5" />
+              <line x1="74" y1="62" x2="92" y2="62" stroke="#485460" stroke-width="2.5" />
+              <line x1="74" y1="74" x2="92" y2="74" stroke="#485460" stroke-width="2.5" />
+              <!-- Chasis central azul Codit -->
+              <rect x="22" y="14" width="56" height="72" rx="20" fill="#0EA5E9" stroke="#0284C7" stroke-width="3" />
+              <!-- Antena frontal indicadora -->
+              <line x1="50" y1="14" x2="50" y2="4" stroke="#0284C7" stroke-width="3" stroke-linecap="round" />
+              <circle cx="50" cy="4" r="4.5" fill="#F59E0B" />
+              <!-- Visor / pantalla superior frontal -->
+              <rect x="30" y="20" width="40" height="28" rx="12" fill="#0F172A" />
+              <!-- Ojos / faros grandes orientados al frente -->
+              <circle cx="41" cy="31" r="5" fill="#FFFFFF" />
+              <circle id="robotEyeL" cx="41" cy="30" r="2.8" fill="#0EA5E9" />
+              <circle cx="59" cy="31" r="5" fill="#FFFFFF" />
+              <circle id="robotEyeR" cx="59" cy="30" r="2.8" fill="#0EA5E9" />
+              <!-- Sonrisa amistosa -->
+              <path id="robotMouth" d="M 44 40 Q 50 45 56 40" stroke="#38BDF8" stroke-width="2.5" fill="none" stroke-linecap="round" />
+              <!-- Flecha direccional en el lomo (apunta al frente) -->
+              <path d="M 50 52 L 50 74" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" />
+              <path d="M 42 62 L 50 52 L 58 62" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Luces traseras rojas -->
+              <circle cx="32" cy="80" r="2.5" fill="#EF4444" />
+              <circle cx="68" cy="80" r="2.5" fill="#EF4444" />
+            </svg>
+          </div>
+        `;
+        targetCell.appendChild(token);
+      }
+
+      setRobotExpression(state) {
+        const mouth = document.getElementById('avatarMouth') || document.getElementById('robotMouth');
+        const pupilL = document.getElementById('avatarPupilL') || document.getElementById('robotEyeL');
+        const pupilR = document.getElementById('avatarPupilR') || document.getElementById('robotEyeR');
+        const moodText = document.getElementById('robotMoodText');
+        const avatar = document.getElementById('robotAvatar');
+
+        if (avatar) avatar.classList.remove('float-gentle');
+
+        if (state === 'happy') {
+          if (mouth) mouth.setAttribute('d', 'M 42 38 Q 50 47 58 38');
+          if (pupilL) pupilL.setAttribute('fill', '#00A86B');
+          if (pupilR) pupilR.setAttribute('fill', '#00A86B');
+          if (moodText) {
+            moodText.textContent = "¡Genial!";
+            moodText.className = "text-xs sm:text-sm font-black text-[#00A86B]";
+          }
+          if (avatar) avatar.classList.add('float-gentle');
+        } else if (state === 'doubt') {
+          if (mouth) mouth.setAttribute('d', 'M 43 43 Q 50 38 57 42');
+          if (pupilL) pupilL.setAttribute('fill', '#E6007E');
+          if (pupilR) pupilR.setAttribute('fill', '#E6007E');
+          if (moodText) {
+            moodText.textContent = "¿Y si probamos otro?";
+            moodText.className = "text-xs sm:text-sm font-black text-[#E6007E]";
+          }
+        } else {
+          if (mouth) mouth.setAttribute('d', 'M 44 40 Q 50 45 56 40');
+          if (pupilL) pupilL.setAttribute('fill', '#0EA5E9');
+          if (pupilR) pupilR.setAttribute('fill', '#0EA5E9');
+          if (moodText) {
+            moodText.textContent = "¡Listo para la misión!";
+            moodText.className = "text-xs sm:text-sm font-extrabold text-[#00A86B]";
+          }
+        }
+      }
+
+      addCommand(type) {
+        if (this.isRunning) return;
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+
+        if (this.commands.length >= lvl.maxCommands) {
+          this.sfx.playDoubt();
+          this.voice.speak(`Tenemos un límite de ${lvl.maxCommands} pasos para esta misión.`);
+          return;
+        }
+
+        this.commands.push(type);
+        this.sfx.playAddCommand();
+        this.renderTape();
+        this.updateExecuteButton();
+      }
+
+      deleteLastCommand() {
+        if (this.isRunning) return;
+        if (this.commands.length > 0) {
+          this.commands.pop();
+          this.sfx.playClick();
+          this.renderTape();
+          this.updateExecuteButton();
+        }
+      }
+
+      clearCommands() {
+        if (this.isRunning) return;
+        if (this.commands.length > 0) {
+          this.commands = [];
+          this.sfx.playClick();
+          this.renderTape();
+          this.updateExecuteButton();
+        }
+      }
+
+      renderTape() {
+        const tape = document.getElementById('commandTape');
+        const countBadge = document.getElementById('instructionCountBadge');
+        const emptyNotice = document.getElementById('emptyTapeNotice');
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+
+        countBadge.textContent = `${this.commands.length} / ${lvl.maxCommands} pasos`;
+
+        if (this.commands.length === 0) {
+          tape.innerHTML = '';
+          tape.appendChild(emptyNotice);
+          emptyNotice.classList.remove('hidden');
+          return;
+        }
+
+        tape.innerHTML = '';
+        const meta = {
+          FORWARD: { icon: '⬆️', label: 'Adelante', color: 'bg-emerald-100 border-[#00A86B] text-[#008756]' },
+          BACKWARD: { icon: '⬇️', label: 'Atrás', color: 'bg-orange-100 border-[#EA580C] text-[#9A3412]' },
+          TURN_LEFT: { icon: '↩️', label: 'Izquierda', color: 'bg-amber-100 border-[#F59E0B] text-amber-900' },
+          TURN_RIGHT: { icon: '↪️', label: 'Derecha', color: 'bg-amber-100 border-[#F59E0B] text-amber-900' }
+        };
+
+        this.commands.forEach((cmd, idx) => {
+          const item = meta[cmd];
+          const chip = document.createElement('div');
+          chip.id = `chip-${idx}`;
+          chip.className = `btn-press flex-shrink-0 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-2xl border-2 ${item.color} flex items-center gap-1.5 shadow-sm font-bold text-xs sm:text-sm select-none cursor-pointer`;
+          chip.innerHTML = `
+            <span class="text-lg sm:text-xl">${item.icon}</span>
+            <span class="text-[10px] sm:text-xs font-black">${item.label}</span>
+          `;
+          chip.onclick = () => {
+            if (!this.isRunning) {
+              this.commands.splice(idx, 1);
+              this.sfx.playClick();
+              this.renderTape();
+              this.updateExecuteButton();
+            }
+          };
+          tape.appendChild(chip);
+        });
+      }
+
+      updateExecuteButton() {
+        const btn = document.getElementById('btnExecute');
+        if (!btn) return;
+        if (this.commands.length === 0) {
+          btn.classList.add('opacity-60');
+        } else {
+          btn.classList.remove('opacity-60');
+        }
+      }
+
+      async executeProgram() {
+        if (this.isRunning) return;
+
+        if (this.commands.length === 0) {
+          this.sfx.playDoubt();
+          this.setRobotExpression('doubt');
+          this.showInlineStatus("¡Elegí al menos una flechita para mover al robot! ⬆️", "warning");
+          this.voice.speak("Tocá una de las flechas de abajo para armar el camino y después probamos.");
+          return;
+        }
+
+        this.isRunning = true;
+        this.disableControlsDuringRun(true);
+        this.hideInlineStatus();
+
+        try {
+          const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+          this.robotState = { ...lvl.start };
+          this.renderRobotOnBoard();
+          this.setRobotExpression('idle');
+
+          await this.sleep(450);
+
+          let crashed = false;
+
+          for (let i = 0; i < this.commands.length; i++) {
+            const cmd = this.commands[i];
+            this.highlightTapeChip(i);
+
+            const result = this.applyCommandStep(cmd, lvl);
+            this.renderRobotOnBoard();
+
+            if (!result.success) {
+              crashed = true;
+              this.sfx.playDoubt();
+              this.setRobotExpression('doubt');
+              break;
+            }
+
+            await this.sleep(600);
+          }
+
+          this.unhighlightAllChips();
+          await this.sleep(350);
+
+          const isAtGoal = (this.robotState.x === lvl.goal.x && this.robotState.y === lvl.goal.y);
+
+          if (!crashed && isAtGoal) {
+            this.handleSuccess();
+          } else {
+            this.handleFailure(crashed);
+          }
+        } catch (error) {
+          console.error("Execution error:", error);
+        } finally {
+          this.isRunning = false;
+          this.disableControlsDuringRun(false);
+        }
+      }
+
+      applyCommandStep(cmd, lvl) {
+        // En plantilla vertical:
+        // 'N' = arriba (-Y)
+        // 'S' = abajo (+Y)
+        // 'E' = derecha (+X)
+        // 'W' = izquierda (-X)
+        const dirs = ['N', 'E', 'S', 'W'];
+        let currentIdx = dirs.indexOf(this.robotState.dir);
+
+        if (cmd === 'TURN_LEFT') {
+          this.robotState.dir = dirs[(currentIdx + 3) % 4];
+          this.sfx.playTurn();
+          return { success: true };
+        }
+
+        if (cmd === 'TURN_RIGHT') {
+          this.robotState.dir = dirs[(currentIdx + 1) % 4];
+          this.sfx.playTurn();
+          return { success: true };
+        }
+
+        let newX = this.robotState.x;
+        let newY = this.robotState.y;
+        const delta = cmd === 'FORWARD' ? 1 : -1;
+
+        if (this.robotState.dir === 'N') newY -= delta;
+        if (this.robotState.dir === 'S') newY += delta;
+        if (this.robotState.dir === 'E') newX += delta;
+        if (this.robotState.dir === 'W') newX -= delta;
+
+        // Validar bordes de la cuadrícula vertical
+        if (newX < 0 || newX >= lvl.cols || newY < 0 || newY >= lvl.rows) {
+          return { success: false, reason: 'wall' };
+        }
+
+        // Validar obstáculos
+        const hitObstacle = lvl.obstacles.some(o => o.x === newX && o.y === newY);
+        if (hitObstacle) {
+          return { success: false, reason: 'obstacle' };
+        }
+
+        this.robotState.x = newX;
+        this.robotState.y = newY;
+        this.sfx.playStep();
+        return { success: true };
+      }
+
+      highlightTapeChip(index) {
+        this.unhighlightAllChips();
+        const chip = document.getElementById(`chip-${index}`);
+        if (chip) {
+          chip.classList.add('ring-4', 'ring-[#E6007E]', 'scale-105');
+        }
+      }
+
+      unhighlightAllChips() {
+        document.querySelectorAll('#commandTape > div').forEach(el => {
+          el.classList.remove('ring-4', 'ring-[#E6007E]', 'scale-105');
+        });
+      }
+
+      disableControlsDuringRun(disable) {
+        const btnExec = document.getElementById('btnExecute');
+        if (disable) {
+          btnExec.classList.add('opacity-50', 'pointer-events-none');
+        } else {
+          btnExec.classList.remove('opacity-50', 'pointer-events-none');
+        }
+      }
+
+      handleSuccess() {
+        this.sfx.playSuccess();
+        this.setRobotExpression('happy');
+        this.showInlineStatus("⭐ ¡Misión cumplida! El robot llegó a la meta.", "success");
+
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        const nextId = lvl.id + 1;
+        if (!this.progress[this.currentGrade].includes(nextId)) {
+          this.progress[this.currentGrade].push(nextId);
+          this.saveProgress();
+        }
+
+        const phrases = [
+          "¡Muy bien! ¡Llegaste a la meta!",
+          "¡Misión cumplida! Qué gran recorrido programaste.",
+          "¡Excelente! Codit está muy feliz.",
+          "¡Lo lograste! Dale la mano a tus sueños."
+        ];
+        const randomSpeech = phrases[Math.floor(Math.random() * phrases.length)];
+        this.voice.speak(randomSpeech);
+
+        const modal = document.getElementById('successModal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.style.display = 'flex';
+        }
+      }
+
+      handleFailure(crashed) {
+        this.sfx.playDoubt();
+        this.setRobotExpression('doubt');
+
+        const retryModal = document.getElementById('retryModal');
+        const desc = document.getElementById('retryDesc');
+
+        let msg = "¡Casi casi! ¿Qué flecha podemos cambiar para llegar?";
+        let oral = "¡Casi casi! Probemos otro camino. ¿Qué flecha podemos cambiar?";
+
+        if (crashed) {
+          msg = "¡Por ahí no! Codit encontró un límite o un obstáculo. ¡Busquemos otra dirección!";
+          oral = "¡Atención! Por ahí no pudimos pasar. ¡Cambiemos una flecha y probemos de nuevo!";
+        }
+
+        this.showInlineStatus("🤔 " + msg, "warning");
+        if (desc) desc.textContent = msg;
+        this.voice.speak(oral);
+
+        if (retryModal) {
+          retryModal.classList.remove('hidden');
+          retryModal.style.display = 'flex';
+        }
+      }
+
+      showInlineStatus(text, type) {
+        const banner = document.getElementById('inlineStatusBanner');
+        if (!banner) return;
+        banner.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'border-[#00A86B]', 'bg-pink-100', 'text-pink-900', 'border-[#E6007E]');
+        if (type === 'success') {
+          banner.classList.add('bg-emerald-100', 'text-emerald-900', 'border-2', 'border-[#00A86B]');
+        } else {
+          banner.classList.add('bg-pink-100', 'text-[#B80064]', 'border-2', 'border-[#E6007E]');
+        }
+        banner.textContent = text;
+      }
+
+      hideInlineStatus() {
+        const banner = document.getElementById('inlineStatusBanner');
+        if (banner) banner.classList.add('hidden');
+      }
+
+      closeRetryModal() {
+        const retryModal = document.getElementById('retryModal');
+        if (retryModal) {
+          retryModal.classList.add('hidden');
+          retryModal.style.display = 'none';
+        }
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        this.robotState = { ...lvl.start };
+        this.renderRobotOnBoard();
+        this.setRobotExpression('idle');
+      }
+
+      replayCurrentLevel() {
+        const modal = document.getElementById('successModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.style.display = 'none';
+        }
+        this.startLevel(this.currentLevelIndex);
+      }
+
+      nextLevel() {
+        const modal = document.getElementById('successModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.style.display = 'none';
+        }
+        const levels = GAME_CONFIG[this.currentGrade].levels;
+        if (this.currentLevelIndex < levels.length - 1) {
+          this.startLevel(this.currentLevelIndex + 1);
+        } else {
+          this.voice.speak("¡Felicitaciones! ¡Completaste todas las misiones de CHF Robótica!");
+          this.showLevelsMap();
+        }
+      }
+
+      showHint() {
+        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        this.sfx.playAddCommand();
+        this.voice.speak(lvl.hint);
+
+        const goalCell = document.getElementById(`cell-${lvl.goal.x}-${lvl.goal.y}`);
+        if (goalCell) {
+          goalCell.classList.add('ring-4', 'ring-[#E6007E]');
+          setTimeout(() => goalCell.classList.remove('ring-4', 'ring-[#E6007E]'), 2500);
+        }
+      }
+
+      openTeacherModal() {
+        const modal = document.getElementById('teacherModal');
+        modal.classList.remove('hidden');
+        this.renderTeacherLevelList();
+      }
+
+      closeTeacherModal() {
+        document.getElementById('teacherModal').classList.add('hidden');
+      }
+
+      setGradeFromTeacher(grade) {
+        this.currentGrade = grade;
+        this.saveProgress();
+        this.renderGradeTitle();
+        this.renderTeacherLevelList();
+        this.showLevelsMap();
+        this.closeTeacherModal();
+      }
+
+      renderTeacherLevelList() {
+        const container = document.getElementById('teacherLevelList');
+        container.innerHTML = '';
+        const levels = GAME_CONFIG[this.currentGrade].levels;
+
+        levels.forEach((lvl, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'py-2 px-1 bg-slate-100 hover:bg-emerald-100 border border-slate-300 rounded-xl text-xs font-extrabold text-slate-700 text-center';
+          btn.textContent = `Nivel ${lvl.id}`;
+          btn.onclick = () => {
+            this.closeTeacherModal();
+            this.startLevel(idx);
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      resetProgress() {
+        this.progress = {
+          sala4: [1],
+          sala5: [1]
+        };
+        this.saveProgress();
+        this.renderLevelsGrid();
+        this.renderTeacherLevelList();
+        this.closeTeacherModal();
+        this.showLevelsMap();
+        this.voice.speak("Se ha reiniciado el avance.");
+      }
+
+      unlockAllLevels() {
+        this.progress.sala4 = [1, 2, 3, 4, 5, 6, 7, 8];
+        this.progress.sala5 = [1, 2, 3, 4, 5, 6, 7, 8];
+        this.saveProgress();
+        this.renderLevelsGrid();
+        this.renderTeacherLevelList();
+        this.closeTeacherModal();
+        this.showLevelsMap();
+        this.voice.speak("Todos los niveles han sido desbloqueados para el taller.");
+      }
+
+      sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+    }
+
+    let app;
+    window.addEventListener('DOMContentLoaded', () => {
+      app = new MissionGame();
+      app.init();
+
+      // Recalcular tamaño de casillas en redimensionamiento de pantalla o rotación de tablet
+      window.addEventListener('resize', () => {
+        const gameScreen = document.getElementById('gameScreen');
+        if (gameScreen && !gameScreen.classList.contains('hidden') && app) {
+          app.renderBoard();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
