@@ -86,7 +86,7 @@
       box-shadow: 0 8px 24px -5px rgba(0, 168, 107, 0.18), inset 0 2px 6px rgba(255,255,255,0.85);
     }
 
-    /* TRANSIÓN SUAVE PARA ROTACIÓN Y TRASLACIÓN DEL ROBOT */
+    /* TRANSICIÓN SUAVE PARA ROTACIÓN Y TRASLACIÓN DEL ROBOT */
     .robot-sprite {
       transition: transform 0.35s cubic-bezier(0.34, 1.45, 0.64, 1);
       will-change: transform;
@@ -146,7 +146,7 @@
       </div>
 
       <button id="mapReturnBtn" onclick="app.showLevelsMap()" class="hidden btn-press h-8 sm:h-9 px-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl flex items-center gap-1 text-slate-700 text-xs font-bold shadow-sm" title="VOLVER AL MAPA">
-        <span>🗺️</span>
+        <span>🗺</span>
         <span class="hidden md:inline">MISIONES</span>
       </button>
 
@@ -160,7 +160,7 @@
       </button>
 
       <button onclick="app.openTeacherModal()" class="btn-press w-8 h-8 sm:w-9 sm:h-9 bg-[#E6007E]/10 hover:bg-[#E6007E]/20 border border-[#E6007E]/30 rounded-xl flex items-center justify-center text-[#E6007E] shadow-sm" title="PANEL DOCENTE">
-        <span class="text-base sm:text-lg">⚙️</span>
+        <span class="text-base sm:text-lg">⚙</span>
       </button>
     </div>
   </header>
@@ -254,7 +254,7 @@
         <div class="w-full bg-white border-2 border-[#92E8C8] rounded-2xl p-2 shadow-sm flex items-center justify-between gap-2 flex-shrink-0">
           <div class="flex items-center gap-2 min-w-0">
             <button id="listenPromptBtn" onclick="app.speakCurrentPrompt()" class="btn-press w-9 h-9 sm:w-10 sm:h-10 bg-emerald-50 hover:bg-emerald-100 border border-[#70E2B8] rounded-xl flex items-center justify-center text-[#00A86B] flex-shrink-0 shadow-sm" title="ESCUCHAR LA CONSIGNA">
-              <span class="text-xl sm:text-2xl">🗣️</span>
+              <span class="text-xl sm:text-2xl">🗣</span>
             </button>
             <div class="truncate">
               <h3 id="gameMissionTitle" class="font-extrabold text-slate-800 text-xs sm:text-sm truncate">MISIÓN 1: LLEGAMOS A LA META</h3>
@@ -290,7 +290,7 @@
           </div>
         </div>
 
-        <!-- 3. TECLADO DE FLECHAS AGRANDADO PARA MAYOR VISIBILIDAD -->
+        <!-- 3. TECLADO DE FLECHAS AGRANDADO (FLECHAS DERECHAS RECTAS) -->
         <div class="w-full flex-1 flex flex-col justify-center gap-2 sm:gap-3">
           <div class="grid grid-cols-4 gap-2 sm:gap-3 w-full">
             <!-- ADELANTE -->
@@ -299,16 +299,14 @@
               <span class="text-[10px] sm:text-xs md:text-sm font-black mt-1 tracking-wider">ADELANTE</span>
             </button>
 
-            <!-- IZQUIERDA -->
-            <button id="cmdTurnL" onclick="app.addCommand('TURN_LEFT')" class="btn-press h-16 sm:h-20 md:h-24 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 sm:border-b-6 border-[#B45309] rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center text-amber-950 shadow-lg">
-              <span class="text-3xl sm:text-4xl md:text-5xl leading-none drop-shadow">↩️</span>
-              <span class="text-[10px] sm:text-xs md:text-sm font-black mt-1 tracking-wider">IZQUIERDA</span>
+            <!-- IZQUIERDA (FLECHA DERECHA RECTA) -->
+            <button id="cmdTurnL" onclick="app.addCommand('TURN_LEFT')" class="btn-press h-16 sm:h-20 md:h-24 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 sm:border-b-6 border-[#B45309] rounded-2xl sm:rounded-3xl flex items-center justify-center text-amber-950 shadow-lg">
+              <span class="text-4xl sm:text-5xl md:text-6xl leading-none drop-shadow">⬅️</span>
             </button>
 
-            <!-- DERECHA -->
-            <button id="cmdTurnR" onclick="app.addCommand('TURN_RIGHT')" class="btn-press h-16 sm:h-20 md:h-24 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 sm:border-b-6 border-[#B45309] rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center text-amber-950 shadow-lg">
-              <span class="text-3xl sm:text-4xl md:text-5xl leading-none drop-shadow">↪️</span>
-              <span class="text-[10px] sm:text-xs md:text-sm font-black mt-1 tracking-wider">DERECHA</span>
+            <!-- DERECHA (FLECHA DERECHA RECTA) -->
+            <button id="cmdTurnR" onclick="app.addCommand('TURN_RIGHT')" class="btn-press h-16 sm:h-20 md:h-24 bg-[#F59E0B] hover:bg-[#D97706] border-b-4 sm:border-b-6 border-[#B45309] rounded-2xl sm:rounded-3xl flex items-center justify-center text-amber-950 shadow-lg">
+              <span class="text-4xl sm:text-5xl md:text-6xl leading-none drop-shadow">➡️</span>
             </button>
 
             <!-- ATRÁS -->
@@ -350,7 +348,7 @@
         🔄
       </div>
       <div class="font-chf font-black text-xl text-slate-800 mb-1">¿REINICIAR EL JUEGO?</div>
-      <p class="text-slate-600 text-xs sm:text-sm font-bold mb-5">SE BORRARÁ TODO EL PROGRESO DE LAS ESTRELLAS Y VOLVERÁS A EMPEZAR DESDE LA MISIÓN 1.</p>
+      <p class="text-slate-600 text-xs sm:text-sm font-bold mb-5">SE BORRARÁ TODO EL PROGRESO DE LAS ESTRELLAS Y VOLVERÁS A EMPEGAR DESDE LA MISIÓN 1.</p>
       
       <div class="flex gap-3 w-full">
         <button onclick="app.closeResetModal()" class="btn-press flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 rounded-2xl font-bold text-slate-700 text-xs sm:text-sm">
@@ -378,7 +376,7 @@
         </button>
         <button onclick="app.nextLevel()" class="btn-press flex-1 py-3 bg-[#E6007E] hover:bg-[#B80064] text-white rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-1.5">
           <span>SIGUIENTE</span>
-          <span>➡️</span>
+          <span>➡</span>
         </button>
       </div>
     </div>
@@ -623,7 +621,7 @@
           {
             id: 2,
             name: "UN PASO, OTRO PASO",
-            subtitle: "CONTAMOS Y DARIOS 2 PASOS ADELANTE.",
+            subtitle: "CONTAMOS Y DARIS 2 PASOS ADELANTE.",
             speech: "EL ROBOT NECESITA DAR DOS PASOS HACIA LA ESTRELLA. PONÉ DOS FLECHAS ADELANTE.",
             cols: 3,
             rows: 4,
@@ -648,83 +646,67 @@
             availableCommands: ['FORWARD', 'TURN_RIGHT'],
             maxCommands: 3,
             type: 'standard',
-            hint: "AVANZÁ HACIA ARRIBA, GIRÁ A LA DERECHA Y AVANZÁ UN CASILLERO."
+            hint: "AVANZÁ Y DESPUÉS GIRÁ CON LA FLECHA AMARILLA."
           },
           {
             id: 4,
-            name: "EL CAMINO TIENE UN CHARCO",
-            subtitle: "ESQUIVÁ EL AGUA PARA NO MOJAR LAS ORUGAS.",
-            speech: "¡HAY UN CHARCO DE AGUA! DOBLEMOS PARA PASAR SEGUROS HACIA LA ESTRELLA.",
+            name: "CAMINO EN L",
+            subtitle: "DOBLAR Y AVANZAR PARA LLEGAR.",
+            speech: "AQUÍ TENEMOS UN CAMINO EN L. AVANZÁ, GIRÁ Y VOLVÉ A AVANZAR.",
+            cols: 3,
+            rows: 4,
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 2, y: 2 },
+            obstacles: [],
+            availableCommands: ['FORWARD', 'TURN_RIGHT'],
+            maxCommands: 4,
+            type: 'standard',
+            hint: "PRUEBA AVANZAR, GIRAR Y AVANZAR OTRA VEZ."
+          },
+          {
+            id: 5,
+            name: "ESQUIVANDO EL CHARCO",
+            subtitle: "EVITÁ EL OBSTÁCULO Y LLEGA A LA META.",
+            speech: "¡CUIDADO CON EL CHARCO! BUSCÁ UN CAMINO LIBRE PARA EL ROBOT.",
             cols: 3,
             rows: 4,
             start: { x: 1, y: 3, dir: 'N' },
             goal: { x: 1, y: 0 },
-            obstacles: [{ x: 1, y: 2, type: 'water' }],
+            obstacles: [{ x: 1, y: 2, type: 'puddle' }],
             availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
             maxCommands: 5,
             type: 'standard',
-            hint: "DOBLÁ A LA IZQUIERDA O DERECHA PARA RODEAR EL CHARQUITO."
-          },
-          {
-            id: 5,
-            name: "PRIMERO PIENSO, DESPUÉS PROGRAMO",
-            subtitle: "PIENSA TODO EL CAMINO ANTES DE PROBAR.",
-            speech: "MIRÁ BIEN EL TABLERO, ARMÁ TODA LA TIRA DE FLECHAS Y DESPUÉS PRESIONÁ PROBAR.",
-            cols: 4,
-            rows: 4,
-            start: { x: 0, y: 3, dir: 'N' },
-            goal: { x: 2, y: 1 },
-            obstacles: [{ x: 1, y: 2, type: 'tree' }],
-            availableCommands: ['FORWARD', 'TURN_RIGHT', 'TURN_LEFT'],
-            maxCommands: 5,
-            type: 'standard',
-            hint: "AVANZÁ DOS VECES HACIA ARRIBA, GIRÁ A LA DERECHA Y AVANZÁ."
+            hint: "GIRÁ A UN LADO PARA RODEAR EL CHARCO."
           },
           {
             id: 6,
-            name: "ENCONTRÁ EL ERROR",
-            subtitle: "HAY UNA FLECHITA AL REVÉS. ¿CUÁL SERÁ?",
-            speech: "¡ALGO SALIÓ DIFERENTE! MIRÁ LAS FLECHAS DE LA TIRA. UNA ESTÁ EQUIVOCADA.",
+            name: "ZIG-ZAG DIVERTIDO",
+            subtitle: "GIRÁ A UN LADO Y AL OTRO.",
+            speech: "¡HAGAMOS UN ZIG-ZAG! MIRA BIEN HACIA DÓNDE GIRAR EN CADA PASO.",
             cols: 3,
             rows: 4,
-            start: { x: 1, y: 3, dir: 'N' },
-            goal: { x: 1, y: 1 },
-            obstacles: [],
-            availableCommands: ['FORWARD', 'BACKWARD'],
-            presetCommands: ['FORWARD', 'BACKWARD'],
-            maxCommands: 2,
-            type: 'debug',
-            hint: "EL ROBOT NECESITA AVANZAR DOS VECES HACIA ADELANTE, NO RETROCEDER."
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 2, y: 1 },
+            obstacles: [{ x: 1, y: 3, type: 'puddle' }],
+            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 5,
+            type: 'standard',
+            hint: "PRIMERO SUBE Y LUEGO GIRÁ HACIA LA DERECHA."
           },
           {
             id: 7,
-            name: "MÁS DE UN CAMINO",
-            subtitle: "PODÉS IR POR LA IZQUIERDA O POR LA DERECHA.",
-            speech: "¡HAY DOS CAMINOS POSIBLES! ELEGÍ EL QUE MÁS TE GUSTE PARA LLEGAR.",
+            name: "LA GRAN DIAGONAL",
+            subtitle: "UN RECORRIDO COMPLETO DE ESQUINA A ESQUINA.",
+            speech: "¡ÚLTIMA MISIÓN DE SALA DE 4! RECORRÉ TODO EL TABLERO HASTA LA META.",
             cols: 3,
-            rows: 4,
-            start: { x: 1, y: 3, dir: 'N' },
-            goal: { x: 1, y: 1 },
-            obstacles: [{ x: 1, y: 2, type: 'rock' }],
-            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            maxCommands: 5,
-            type: 'multiple',
-            hint: "PODÉS ESQUIVAR LA PIEDRA POR LA IZQUIERDA O POR LA DERECHA. ¡AMBAS SIRVEN!"
-          },
-          {
-            id: 8,
-            name: "EL DESAFÍO FINAL DE SALA 4",
-            subtitle: "ESQUIVÁ LOS OBSTÁCULOS Y ALCANZÁ LA ESTRELLA.",
-            speech: "¡GRAN DESAFÍO FINAL! GUIÁ A CODIT ESQUIVANDO EL CHARCO Y LA ROCA.",
-            cols: 4,
             rows: 4,
             start: { x: 0, y: 3, dir: 'N' },
             goal: { x: 2, y: 0 },
-            obstacles: [{ x: 1, y: 2, type: 'rock' }, { x: 2, y: 2, type: 'water' }],
+            obstacles: [{ x: 1, y: 1, type: 'puddle' }],
             availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            maxCommands: 6,
+            maxCommands: 5,
             type: 'standard',
-            hint: "SUBÍ POR LA COLUMNA IZQUIERDA Y DOBLÁ HACIA LA DERECHA ARRIBA DE TODO."
+            hint: "AVANZÁ HASTA ARRIBA O A LA DERECHA Y LUEGO COMPLETA EL CAMINO."
           }
         ]
       },
@@ -733,801 +715,558 @@
         levels: [
           {
             id: 1,
-            name: "LLEGAMOS A LA META",
-            subtitle: "AVANZÁ CON PRECISIÓN HACIA LA META.",
-            speech: "OBSERVÁ LA ORIENTACIÓN DEL ROBOT Y PONÉ LAS FLECHAS NECESARIAS.",
-            cols: 3,
-            rows: 5,
-            start: { x: 1, y: 4, dir: 'N' },
-            goal: { x: 1, y: 2 },
-            obstacles: [],
-            availableCommands: ['FORWARD'],
-            maxCommands: 2,
-            type: 'standard',
-            hint: "NECESITÁS DOS PASOS HACIA ADELANTE."
-          },
-          {
-            id: 2,
-            name: "UN PASO, OTRO PASO",
-            subtitle: "CONTEO Y ANTICIPACIÓN DE TRAYECTO VERTICAL.",
-            speech: "CONTÁ LOS CASILLEROS QUE FALTAN Y PROGRAMÁ EL RECORRIDO EXACTO.",
-            cols: 3,
-            rows: 5,
-            start: { x: 1, y: 4, dir: 'N' },
-            goal: { x: 1, y: 1 },
-            obstacles: [],
-            availableCommands: ['FORWARD'],
-            maxCommands: 3,
-            type: 'standard',
-            hint: "EL ROBOT DEBE DAR EXACTAMENTE 3 PASOS AL FRENTE."
-          },
-          {
-            id: 3,
-            name: "¿HACIA DÓNDE GIRAMOS?",
-            subtitle: "GIROS A DERECHA E IZQUIERDA.",
-            speech: "ATENCIÓN A LA ORIENTACIÓN DEL ROBOT. ¿HACIA QUÉ LADO DEBE GIRAR PARA LLEGAR?",
+            name: "DESAFÍO DE INICIO",
+            subtitle: "CALENTAMIENTO CON GIROS PRECISOS.",
+            speech: "¡SALA DE 5! PROGRAMÁ EL ROBOT PARA AVANZAR Y GIRAR SIN CONFUDIRTE DE LADO.",
             cols: 4,
-            rows: 5,
-            start: { x: 1, y: 4, dir: 'N' },
-            goal: { x: 3, y: 2 },
+            rows: 4,
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 2, y: 2 },
             obstacles: [],
             availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
             maxCommands: 5,
             type: 'standard',
-            hint: "SUBÍ DOS PASOS, GIRÁ A LA DERECHA Y AVANZÁ DOS CASILLAS MÁS."
+            hint: "CUMPLE CON DOS PASOS ADELANTE Y UN GIRO A LA DERECHA."
           },
           {
-            id: 4,
-            name: "EL CAMINO TIENE OBSTÁCULOS",
-            subtitle: "ESQUIVÁ EL ÁRBOL Y LAS PIEDRAS.",
-            speech: "HAY OBSTÁCULOS EN EL CAMINO. BUSQUEMOS UN RECORRIDO SEGURO PARA CODIT.",
+            id: 2,
+            name: "DOBLE OBSTÁCULO",
+            subtitle: "DOS CHARCOS EN EL CAMINO.",
+            speech: "HAY DOS CHARCOS DE AGUA. ¿CUÁL ES LA RUTA MÁS SEGURA?",
             cols: 4,
-            rows: 5,
-            start: { x: 0, y: 4, dir: 'N' },
-            goal: { x: 2, y: 1 },
-            obstacles: [{ x: 1, y: 3, type: 'tree' }, { x: 1, y: 2, type: 'rock' }],
+            rows: 4,
+            start: { x: 1, y: 3, dir: 'N' },
+            goal: { x: 3, y: 1 },
+            obstacles: [{ x: 1, y: 2, type: 'puddle' }, { x: 2, y: 2, type: 'puddle' }],
             availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
             maxCommands: 7,
             type: 'standard',
-            hint: "AVANZÁ RECTO POR LA COLUMNA CERO Y LUEGO GIRÁ A LA DERECHA."
+            hint: "RODEA LOS CHARCOS YENDO PRIMERO HACIA LA DERECHA."
+          },
+          {
+            id: 3,
+            name: "REVERSA INTELIGENTE",
+            subtitle: "USÁ EL BOTÓN DE IR HACIA ATRÁS.",
+            speech: "¡PROBEMOS IR HACIA ATRÁS! A VECES ES MÁS RÁPIDO VOLVER UN PASO.",
+            cols: 4,
+            rows: 4,
+            start: { x: 1, y: 1, dir: 'N' },
+            goal: { x: 1, y: 2 },
+            obstacles: [{ x: 0, y: 1, type: 'puddle' }, { x: 2, y: 1, type: 'puddle' }],
+            availableCommands: ['FORWARD', 'BACKWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 3,
+            type: 'standard',
+            hint: "USÁ EL BOTÓN NARANJA ATRÁS PARA RETROCEDER DIRECTAMENTE."
+          },
+          {
+            id: 4,
+            name: "EL LABERINTO CORTO",
+            subtitle: "ENCUENTRA LA SALIDA ENTRES LOS OBSTÁCULOS.",
+            speech: "BUSCÁ EL ÚNICO CAMINO LIBRE ENTRE LOS OBSTÁCULOS PARA LLEGAR A LA ESTRELLA.",
+            cols: 4,
+            rows: 4,
+            start: { x: 0, y: 3, dir: 'N' },
+            goal: { x: 3, y: 0 },
+            obstacles: [{ x: 1, y: 3, type: 'puddle' }, { x: 1, y: 1, type: 'puddle' }, { x: 2, y: 2, type: 'puddle' }],
+            availableCommands: ['FORWARD', 'BACKWARD', 'TURN_LEFT', 'TURN_RIGHT'],
+            maxCommands: 8,
+            type: 'standard',
+            hint: "SUBE PRIMERO Y DESPUÉS AVANZA HACIA LA DERECHA."
           },
           {
             id: 5,
-            name: "PRIMERO PIENSO, DESPUÉS PROGRAMO",
-            subtitle: "PLANIFICACIÓN COMPLETA DE ALGORITMO.",
-            speech: "TRAZÁ EL RECORRIDO CON LA MIRADA ANTES DE COLOCAR LAS FICHAS. LUEGO EJECUTAMOS.",
+            name: "ORIENTACIÓN CAMBIANTE",
+            subtitle: "EL ROBOT INICIA MIRANDO AL ESTE.",
+            speech: "¡OJO! EL ROBOT NO MIRA HACIA ARRIBA AL EMPEZAR. ¡FÍJATE HACIA DÓNDE MIRA!",
             cols: 4,
-            rows: 5,
-            start: { x: 0, y: 4, dir: 'N' },
-            goal: { x: 3, y: 1 },
-            obstacles: [{ x: 1, y: 4, type: 'water' }, { x: 2, y: 2, type: 'tree' }],
+            rows: 4,
+            start: { x: 0, y: 1, dir: 'E' },
+            goal: { x: 2, y: 3 },
+            obstacles: [{ x: 1, y: 1, type: 'puddle' }],
             availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            maxCommands: 8,
+            maxCommands: 7,
             type: 'standard',
-            hint: "SUBÍ POR LA IZQUIERDA, DOBLÁ A LA DERECHA POR LA FILA SUPERIOR LIBRE."
+            hint: "COMO MIRA A LA DERECHA, SI AVANZAS IRÁ HACIA EL LADO DERECHO."
           },
           {
             id: 6,
-            name: "ENCONTRÁ EL ERROR",
-            subtitle: "DEPURÁ LA SECUENCIA PARA NO CHOCAR.",
-            speech: "¡ALGO SALIÓ DIFERENTE! ESTA SECUENCIA DIRIGE AL ROBOT HACIA EL OBSTÁCULO. CAMBIÁ LA FLECHA.",
+            name: "MISIÓN EXPERTA",
+            subtitle: "RECORRIDO LARGO CON GIROS DIVERSOS.",
+            speech: "DEMUESTRA TODO LO QUE APRENDISTE EN ESTE RECORRIDO COMPLETO.",
             cols: 4,
-            rows: 5,
-            start: { x: 1, y: 4, dir: 'N' },
-            goal: { x: 3, y: 2 },
-            obstacles: [{ x: 1, y: 2, type: 'water' }],
-            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            presetCommands: ['FORWARD', 'TURN_LEFT', 'FORWARD'],
-            maxCommands: 6,
-            type: 'debug',
-            hint: "EL ROBOT GIRÓ HACIA LA IZQUIERDA CUANDO DEBÍA DOBLAR HACIA LA DERECHA."
-          },
-          {
-            id: 7,
-            name: "MÁS DE UN CAMINO",
-            subtitle: "MÚLTIPLES TRAYECTORIAS EQUIVALENTES.",
-            speech: "EXISTEN DIFERENTES MANERAS DE ALCANZAR LA META. ¡DISEÑÁ TU PROPIA SOLUCIÓN!",
-            cols: 4,
-            rows: 5,
-            start: { x: 1, y: 4, dir: 'N' },
-            goal: { x: 1, y: 0 },
-            obstacles: [{ x: 1, y: 2, type: 'rock' }, { x: 2, y: 2, type: 'tree' }],
-            availableCommands: ['FORWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            maxCommands: 12, /* AMPLIA CANTIDAD DE PASOS PARA PERMITIR DISTINTOS RECORRIDOS */
-            type: 'multiple',
-            hint: "PODÉS RODEAR EL OBSTÁCULO POR EL PASILLO DE LA IZQUIERDA O PROBAR CON MÁS PASOS POR LA DERECHA."
-          },
-          {
-            id: 8,
-            name: "EL GRAN DESAFÍO FINAL DE SALA 5",
-            subtitle: "TABLERO VERTICAL COMPLEJO CON MÚLTIPLES GIROS.",
-            speech: "¡LLEGAMOS AL GRAN DESAFÍO DE ROBÓTICA EDUCATIVA! ESQUIVÁ TODO Y ALCANZÁ LA ESTRELLA DORADA.",
-            cols: 4,
-            rows: 5,
-            start: { x: 0, y: 4, dir: 'N' },
-            goal: { x: 3, y: 0 },
-            obstacles: [
-              { x: 1, y: 3, type: 'water' },
-              { x: 2, y: 2, type: 'tree' },
-              { x: 1, y: 1, type: 'rock' }
-            ],
+            rows: 4,
+            start: { x: 3, y: 3, dir: 'N' },
+            goal: { x: 0, y: 0 },
+            obstacles: [{ x: 2, y: 3, type: 'puddle' }, { x: 1, y: 1, type: 'puddle' }],
             availableCommands: ['FORWARD', 'BACKWARD', 'TURN_LEFT', 'TURN_RIGHT'],
-            maxCommands: 9,
+            maxCommands: 10,
             type: 'standard',
-            hint: "SUBÍ, GIRÁ AL ESTE, CONTINUÁ EN ZIGZAG HASTA LA ESQUINA SUPERIOR."
+            hint: "PIENSA PASO A PASO Y USA EL BOTÓN DE BORRAR SI TE EQUIVOCAS."
           }
         ]
       }
     };
 
-    class MissionGame {
+    class App {
       constructor() {
-        this.sfx = new SoundEffects();
-        this.voice = new VoiceCoach();
+        this.sound = new SoundEffects();
+        this.coach = new VoiceCoach();
         this.currentGrade = 'sala4';
-        this.currentLevelIndex = 0;
-        this.progress = {
-          sala4: [1],
-          sala5: [1]
-        };
-
-        this.robotState = {
-          x: 1,
-          y: 2,
-          dir: 'N'
-        };
-
+        this.currentLevelIdx = 0;
         this.commands = [];
-        this.isRunning = false;
+        this.robotState = { x: 0, y: 0, dir: 'N' };
+        this.isExecuting = false;
+        this.unlockedLevels = { sala4: 1, sala5: 1 };
+        
         this.loadProgress();
       }
 
       init() {
-        this.renderGradeTitle();
         this.showHome();
       }
 
       loadProgress() {
         try {
-          const saved = localStorage.getItem('chf_mision_prog');
+          const saved = localStorage.getItem('chf_robotica_progress');
           if (saved) {
-            this.progress = JSON.parse(saved);
+            const data = JSON.parse(saved);
+            this.unlockedLevels = data.unlockedLevels || this.unlockedLevels;
           }
-        } catch (e) {}
+        } catch(e) { console.warn(e); }
       }
 
       saveProgress() {
         try {
-          localStorage.setItem('chf_mision_prog', JSON.stringify(this.progress));
-        } catch (e) {}
-      }
-
-      toggleSound() {
-        const soundBtn = document.getElementById('soundIcon');
-        this.sfx.enabled = !this.sfx.enabled;
-        this.voice.enabled = this.sfx.enabled;
-        if (this.sfx.enabled) {
-          soundBtn.textContent = '🔊';
-          this.sfx.playClick();
-        } else {
-          soundBtn.textContent = '🔇';
-          this.voice.stop();
-        }
-      }
-
-      selectGrade(grade) {
-        this.currentGrade = grade;
-        this.sfx.playClick();
-        this.renderGradeTitle();
-        this.showLevelsMap();
-      }
-
-      renderGradeTitle() {
-        const label = document.getElementById('currentModeLabel');
-        const mapTitle = document.getElementById('levelsGradeTitle');
-        const text = this.currentGrade === 'sala4' ? '● SALA DE 4 AÑOS 🐥' : '● SALA DE 5 AÑOS 🚀';
-        if (label) label.textContent = text;
-        if (mapTitle) {
-          mapTitle.textContent = this.currentGrade === 'sala4' ? 'MISIONES SALA DE 4' : 'MISIONES SALA DE 5';
-          mapTitle.className = this.currentGrade === 'sala4' ? 'text-lg sm:text-2xl font-black text-[#E6007E]' : 'text-lg sm:text-2xl font-black text-[#00A86B]';
-        }
+          localStorage.setItem('chf_robotica_progress', JSON.stringify({
+            unlockedLevels: this.unlockedLevels
+          }));
+        } catch(e) { console.warn(e); }
       }
 
       showHome() {
-        this.voice.stop();
-        this.isRunning = false;
+        this.coach.stop();
         document.getElementById('welcomeScreen').classList.remove('hidden');
         document.getElementById('levelsScreen').classList.add('hidden');
         document.getElementById('gameScreen').classList.add('hidden');
         document.getElementById('levelBadge').classList.add('hidden');
-        const mapBtn = document.getElementById('mapReturnBtn');
-        if (mapBtn) mapBtn.classList.add('hidden');
+        document.getElementById('mapReturnBtn').classList.add('hidden');
+      }
+
+      selectGrade(grade) {
+        this.sound.playClick();
+        this.currentGrade = grade;
+        document.getElementById('currentModeLabel').innerText = grade === 'sala4' ? '● SALA 4' : '● SALA 5';
+        this.showLevelsMap();
       }
 
       showLevelsMap() {
-        this.voice.stop();
-        this.isRunning = false;
+        this.coach.stop();
         document.getElementById('welcomeScreen').classList.add('hidden');
         document.getElementById('levelsScreen').classList.remove('hidden');
         document.getElementById('gameScreen').classList.add('hidden');
         document.getElementById('levelBadge').classList.add('hidden');
-        const mapBtn = document.getElementById('mapReturnBtn');
-        if (mapBtn) mapBtn.classList.add('hidden');
-        this.renderLevelsGrid();
-      }
+        document.getElementById('mapReturnBtn').classList.add('hidden');
 
-      renderLevelsGrid() {
+        const title = document.getElementById('levelsGradeTitle');
+        title.innerText = GAME_CONFIG[this.currentGrade].title;
+        title.className = `text-base sm:text-xl font-black ${this.currentGrade === 'sala4' ? 'text-[#E6007E]' : 'text-[#00A86B]'}`;
+
         const container = document.getElementById('levelsGridContainer');
         container.innerHTML = '';
+
         const levels = GAME_CONFIG[this.currentGrade].levels;
-        const unlocked = this.progress[this.currentGrade] || [1];
+        const unlockedMax = this.unlockedLevels[this.currentGrade] || 1;
 
         levels.forEach((lvl, idx) => {
-          const isUnlocked = unlocked.includes(lvl.id);
-          const isCompleted = unlocked.includes(lvl.id + 1);
-
-          const card = document.createElement('button');
-          const isSala4 = this.currentGrade === 'sala4';
-          const activeBorder = isSala4 ? 'border-[#E6007E] hover:border-pink-500' : 'border-[#00A86B] hover:border-emerald-500';
-
-          card.className = `btn-press p-3.5 sm:p-4 rounded-3xl border-3 sm:border-4 flex flex-col items-center justify-center gap-1.5 shadow-md relative transition-all ${
+          const isUnlocked = lvl.id <= unlockedMax;
+          const btn = document.createElement('button');
+          btn.className = `btn-press p-3 sm:p-4 rounded-2xl flex flex-col items-center justify-between border-3 transition-all ${
             isUnlocked 
-              ? `bg-white ${activeBorder} cursor-pointer` 
-              : 'bg-slate-100 border-slate-200 opacity-50 cursor-not-allowed'
+              ? 'bg-white border-[#70E2B8] text-slate-800 shadow-md hover:shadow-lg' 
+              : 'bg-slate-100 border-slate-200 text-slate-400 opacity-60 cursor-not-allowed'
           }`;
+          
+          btn.onclick = () => {
+            if (isUnlocked) {
+              this.sound.playClick();
+              this.startLevel(idx);
+            }
+          };
 
-          if (isUnlocked) {
-            card.onclick = () => this.startLevel(idx);
-          }
-
-          let icon = '🔒';
-          if (isCompleted) icon = '⭐';
-          else if (isUnlocked) icon = '🚀';
-
-          card.innerHTML = `
-            <span class="text-3xl sm:text-4xl">${icon}</span>
-            <div class="font-extrabold text-slate-800 text-xs sm:text-sm">MISIÓN ${lvl.id}</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 line-clamp-1 font-medium">${lvl.name}</div>
+          btn.innerHTML = `
+            <div class="flex items-center justify-between w-full">
+              <span class="text-xs font-black ${isUnlocked ? 'text-[#00A86B]' : 'text-slate-400'}">M${lvl.id}</span>
+              <span>${isUnlocked ? '⭐' : '🔒'}</span>
+            </div>
+            <div class="text-xl sm:text-2xl my-1">${isUnlocked ? '🤖' : '❓'}</div>
+            <div class="text-[10px] font-bold text-center line-clamp-1">${lvl.name}</div>
           `;
-          container.appendChild(card);
+          container.appendChild(btn);
         });
       }
 
-      startLevel(levelIndex) {
-        this.currentLevelIndex = levelIndex;
-        const levelData = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+      startLevel(idx) {
+        this.currentLevelIdx = idx;
+        const level = GAME_CONFIG[this.currentGrade].levels[idx];
+        this.commands = [];
+        this.robotState = { ...level.start };
 
         document.getElementById('welcomeScreen').classList.add('hidden');
         document.getElementById('levelsScreen').classList.add('hidden');
         document.getElementById('gameScreen').classList.remove('hidden');
 
-        const levelBadge = document.getElementById('levelBadge');
-        levelBadge.classList.remove('hidden');
-        const mapBtn = document.getElementById('mapReturnBtn');
-        if (mapBtn) mapBtn.classList.remove('hidden');
-        document.getElementById('levelBadgeText').textContent = `MISIÓN ${levelData.id}`;
-        document.getElementById('gameMissionTitle').textContent = `MISIÓN ${levelData.id}: ${levelData.name}`;
-        document.getElementById('gameMissionSubtitle').textContent = levelData.subtitle;
+        document.getElementById('levelBadge').classList.remove('hidden');
+        document.getElementById('mapReturnBtn').classList.remove('hidden');
+        document.getElementById('levelBadgeText').innerText = `MISIÓN ${level.id}`;
 
-        this.commands = [];
-        if (levelData.presetCommands) {
-          this.commands = [...levelData.presetCommands];
-        }
+        document.getElementById('gameMissionTitle').innerText = `MISIÓN ${level.id}: ${level.name}`;
+        document.getElementById('gameMissionSubtitle').innerText = level.subtitle;
 
-        this.updateAvailableButtons(levelData.availableCommands);
-        this.robotState = { ...levelData.start };
-        this.isRunning = false;
-
-        this.setRobotExpression('idle');
+        this.updateButtonsVisibility(level);
         this.renderBoard();
-        this.renderTape();
-        this.updateExecuteButton();
+        this.renderCommandTape();
 
-        setTimeout(() => {
-          this.speakCurrentPrompt();
-        }, 300);
+        this.coach.speak(level.speech);
       }
 
-      speakCurrentPrompt() {
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-        if (lvl && lvl.speech) {
-          this.voice.speak(lvl.speech);
-        }
-      }
-
-      updateAvailableButtons(allowed) {
-        const btns = {
-          FORWARD: document.getElementById('cmdFwd'),
-          BACKWARD: document.getElementById('cmdBwd'),
-          TURN_LEFT: document.getElementById('cmdTurnL'),
-          TURN_RIGHT: document.getElementById('cmdTurnR')
-        };
-
-        Object.keys(btns).forEach(key => {
-          const btn = btns[key];
-          if (allowed.includes(key)) {
-            btn.classList.remove('opacity-25', 'pointer-events-none');
-          } else {
-            btn.classList.add('opacity-25', 'pointer-events-none');
-          }
-        });
+      updateButtonsVisibility(level) {
+        const cmds = level.availableCommands;
+        document.getElementById('cmdFwd').style.display = cmds.includes('FORWARD') ? 'flex' : 'none';
+        document.getElementById('cmdBwd').style.display = cmds.includes('BACKWARD') ? 'flex' : 'none';
+        document.getElementById('cmdTurnL').style.display = cmds.includes('TURN_LEFT') ? 'flex' : 'none';
+        document.getElementById('cmdTurnR').style.display = cmds.includes('TURN_RIGHT') ? 'flex' : 'none';
       }
 
       renderBoard() {
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
         const grid = document.getElementById('boardGrid');
-        const wrapper = document.getElementById('boardWrapper');
-        if (!grid || !wrapper) return;
         grid.innerHTML = '';
 
-        grid.style.gridTemplateColumns = `repeat(${lvl.cols}, minmax(0, 1fr))`;
+        grid.style.gridTemplateColumns = `repeat(${level.cols}, minmax(0, 1fr))`;
+        grid.style.gridTemplateRows = `repeat(${level.rows}, minmax(0, 1fr))`;
 
-        const parentEl = wrapper.parentElement;
-        const parentRect = parentEl ? parentEl.getBoundingClientRect() : wrapper.getBoundingClientRect();
-        
-        const availableW = Math.max((parentRect.width || 300) - 36, 180);
-        const availableH = Math.max((parentRect.height || 400) - 36, 180);
+        const wrapper = document.getElementById('boardWrapper');
+        const aspect = level.cols / level.rows;
+        wrapper.style.aspectRatio = `${aspect}`;
 
-        const gapSize = 10;
-        const cellSizeByW = Math.floor((availableW - (lvl.cols - 1) * gapSize) / lvl.cols);
-        const cellSizeByH = Math.floor((availableH - (lvl.rows - 1) * gapSize) / lvl.rows);
-        
-        const targetSize = Math.min(cellSizeByW, cellSizeByH, 140);
-        const finalSize = Math.max(targetSize, 48);
+        for (let r = 0; r < level.rows; r++) {
+          for (let c = 0; c < level.cols; c++) {
+            const tile = document.createElement('div');
+            tile.className = 'mat-tile relative flex items-center justify-center p-1 aspect-square';
+            tile.id = `cell-${c}-${r}`;
 
-        for (let y = 0; y < lvl.rows; y++) {
-          for (let x = 0; x < lvl.cols; x++) {
-            const cell = document.createElement('div');
-            cell.id = `cell-${x}-${y}`;
-            cell.style.width = `${finalSize}px`;
-            cell.style.height = `${finalSize}px`;
-            cell.className = `mat-tile flex items-center justify-center relative select-none`;
-
-            if (lvl.goal.x === x && lvl.goal.y === y) {
-              cell.innerHTML = `
-                <div class="star-anim flex items-center justify-center drop-shadow-md w-full h-full p-2">
-                  <svg viewBox="0 0 100 100" class="w-full h-full max-w-[85%] max-h-[85%]">
-                    <path d="M 50 10 L 62 36 L 90 38 L 68 56 L 75 84 L 50 68 L 25 84 L 32 56 L 10 38 L 38 36 Z" 
-                          fill="#F6D365" stroke="#E3B330" stroke-width="4" stroke-linejoin="round" />
-                    <circle cx="44" cy="38" r="4" fill="#FFFFFF" opacity="0.7" />
-                  </svg>
-                </div>`;
+            if (level.goal.x === c && level.goal.y === r) {
+              tile.innerHTML += `<span class="text-3xl sm:text-4xl star-anim filter drop-shadow">⭐</span>`;
             }
 
-            const obs = lvl.obstacles.find(o => o.x === x && o.y === y);
+            const obs = level.obstacles.find(o => o.x === c && o.y === r);
             if (obs) {
-              let icon = '🧱';
-              if (obs.type === 'tree') icon = '🌳';
-              if (obs.type === 'water') icon = '💧';
-              if (obs.type === 'rock') icon = '🪨';
-              cell.innerHTML = `<span class="text-3xl sm:text-4xl filter drop-shadow select-none">${icon}</span>`;
+              tile.innerHTML += `<span class="text-2xl sm:text-3xl filter drop-shadow">💧</span>`;
             }
 
-            grid.appendChild(cell);
+            grid.appendChild(tile);
           }
         }
 
-        this.renderRobotOnBoard();
+        this.renderRobot();
       }
 
-      renderRobotOnBoard() {
-        document.querySelectorAll('.robot-token').forEach(el => el.remove());
+      renderRobot() {
+        const existing = document.getElementById('robotSprite');
+        if (existing) existing.remove();
 
-        const targetCell = document.getElementById(`cell-${this.robotState.x}-${this.robotState.y}`);
-        if (!targetCell) return;
+        const cell = document.getElementById(`cell-${this.robotState.x}-${this.robotState.y}`);
+        if (!cell) return;
 
-        const token = document.createElement('div');
-        token.className = 'robot-token absolute inset-0 flex items-center justify-center pointer-events-none p-1 z-10';
+        const robot = document.createElement('div');
+        robot.id = 'robotSprite';
+        robot.className = 'robot-sprite absolute inset-0 flex items-center justify-center pointer-events-none z-10';
 
-        const angles = { 'N': 0, 'E': 90, 'S': 180, 'W': 270 };
-        const rot = angles[this.robotState.dir] ?? 0;
+        let rotation = 0;
+        if (this.robotState.dir === 'E') rotation = 90;
+        if (this.robotState.dir === 'S') rotation = 180;
+        if (this.robotState.dir === 'W') rotation = 270;
 
-        token.innerHTML = `
-          <div class="robot-sprite w-full h-full flex items-center justify-center" style="transform: rotate(${rot}deg);">
-            <svg viewBox="0 0 100 100" class="w-full h-full max-w-[90%] max-h-[90%] drop-shadow-md">
-              <rect x="8" y="16" width="18" height="68" rx="8" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
-              <rect x="74" y="16" width="18" height="68" rx="8" fill="#2C3A47" stroke="#1E272E" stroke-width="2" />
-              <line x1="8" y1="26" x2="26" y2="26" stroke="#485460" stroke-width="2.5" />
-              <line x1="8" y1="38" x2="26" y2="38" stroke="#485460" stroke-width="2.5" />
-              <line x1="8" y1="50" x2="26" y2="50" stroke="#485460" stroke-width="2.5" />
-              <line x1="8" y1="62" x2="26" y2="62" stroke="#485460" stroke-width="2.5" />
-              <line x1="8" y1="74" x2="26" y2="74" stroke="#485460" stroke-width="2.5" />
-              <line x1="74" y1="26" x2="92" y2="26" stroke="#485460" stroke-width="2.5" />
-              <line x1="74" y1="38" x2="92" y2="38" stroke="#485460" stroke-width="2.5" />
-              <line x1="74" y1="50" x2="92" y2="50" stroke="#485460" stroke-width="2.5" />
-              <line x1="74" y1="62" x2="92" y2="62" stroke="#485460" stroke-width="2.5" />
-              <line x1="74" y1="74" x2="92" y2="74" stroke="#485460" stroke-width="2.5" />
-              <rect x="22" y="14" width="56" height="72" rx="20" fill="#0EA5E9" stroke="#0284C7" stroke-width="3" />
-              <line x1="50" y1="14" x2="50" y2="4" stroke="#0284C7" stroke-width="3" stroke-linecap="round" />
-              <circle cx="50" cy="4" r="4.5" fill="#F59E0B" />
-              <rect x="30" y="20" width="40" height="28" rx="12" fill="#0F172A" />
-              <circle cx="41" cy="31" r="5" fill="#FFFFFF" />
-              <circle id="robotEyeL" cx="41" cy="30" r="2.8" fill="#0EA5E9" />
-              <circle cx="59" cy="31" r="5" fill="#FFFFFF" />
-              <circle id="robotEyeR" cx="59" cy="30" r="2.8" fill="#0EA5E9" />
-              <path id="robotMouth" d="M 44 40 Q 50 45 56 40" stroke="#38BDF8" stroke-width="2.5" fill="none" stroke-linecap="round" />
-              <path d="M 50 52 L 50 74" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" />
-              <path d="M 42 62 L 50 52 L 58 62" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-              <circle cx="32" cy="80" r="2.5" fill="#EF4444" />
-              <circle cx="68" cy="80" r="2.5" fill="#EF4444" />
-            </svg>
+        robot.style.transform = `rotate(${rotation}deg)`;
+        robot.innerHTML = `
+          <div class="w-4/5 h-4/5 bg-gradient-to-b from-[#0EA5E9] to-[#0284C7] rounded-2xl border-3 border-white shadow-lg flex flex-col items-center justify-center relative p-1">
+            <!-- FLECHA DE DIRECCIÓN ADELANTE BIEN REMARCADA EN LA PARTE SUPERIOR -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 flex flex-col items-center z-20">
+              <span class="text-amber-300 font-black text-sm sm:text-base leading-none drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">▲</span>
+            </div>
+
+            <div class="w-3 h-1.5 bg-amber-400 rounded-full mb-1 border border-white"></div>
+            <div class="w-full bg-slate-900 rounded-lg p-1 flex justify-around items-center">
+              <div class="w-2 h-2 rounded-full bg-white flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-sky-500"></div></div>
+              <div class="w-2 h-2 rounded-full bg-white flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-sky-500"></div></div>
+            </div>
+            <div class="w-1/2 h-1 bg-amber-400 rounded-full mt-1"></div>
+            <div class="absolute -top-1.5 w-1 h-2 bg-sky-600 rounded-t"></div>
+            <div class="absolute -top-3 w-2 h-2 bg-amber-400 rounded-full border border-white"></div>
           </div>
         `;
-        targetCell.appendChild(token);
+
+        cell.appendChild(robot);
       }
 
-      setRobotExpression(state) {
-        const mouth = document.getElementById('avatarMouth') || document.getElementById('robotMouth');
-        const pupilL = document.getElementById('avatarPupilL') || document.getElementById('robotEyeL');
-        const pupilR = document.getElementById('avatarPupilR') || document.getElementById('robotEyeR');
-        const moodText = document.getElementById('robotMoodText');
-        const avatar = document.getElementById('robotAvatar');
-
-        if (avatar) avatar.classList.remove('float-gentle');
-
-        if (state === 'happy') {
-          if (mouth) mouth.setAttribute('d', 'M 42 38 Q 50 47 58 38');
-          if (pupilL) pupilL.setAttribute('fill', '#00A86B');
-          if (pupilR) pupilR.setAttribute('fill', '#00A86B');
-          if (moodText) {
-            moodText.textContent = "¡GENIAL!";
-            moodText.className = "text-xs sm:text-sm font-black text-[#00A86B]";
-          }
-          if (avatar) avatar.classList.add('float-gentle');
-        } else if (state === 'doubt') {
-          if (mouth) mouth.setAttribute('d', 'M 43 43 Q 50 38 57 42');
-          if (pupilL) pupilL.setAttribute('fill', '#E6007E');
-          if (pupilR) pupilR.setAttribute('fill', '#E6007E');
-          if (moodText) {
-            moodText.textContent = "¿Y SI PROBAMOS OTRO?";
-            moodText.className = "text-xs sm:text-sm font-black text-[#E6007E]";
-          }
-        } else {
-          if (mouth) mouth.setAttribute('d', 'M 44 40 Q 50 45 56 40');
-          if (pupilL) pupilL.setAttribute('fill', '#0EA5E9');
-          if (pupilR) pupilR.setAttribute('fill', '#0EA5E9');
-          if (moodText) {
-            moodText.textContent = "¡LISTO PARA LA MISIÓN!";
-            moodText.className = "text-xs sm:text-sm font-extrabold text-[#00A86B]";
-          }
-        }
-      }
-
-      addCommand(type) {
-        if (this.isRunning) return;
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-
-        if (this.commands.length >= lvl.maxCommands) {
-          this.sfx.playDoubt();
-          this.voice.speak(`TENEMOS UN LÍMITE DE ${lvl.maxCommands} PASOS PARA ESTA MISIÓN.`);
+      addCommand(cmd) {
+        if (this.isExecuting) return;
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
+        if (this.commands.length >= level.maxCommands) {
+          this.sound.playDoubt();
+          this.showBanner("¡MÁXIMO DE PASOS ALCANZADO!", "bg-amber-100 text-amber-800 border-amber-300");
           return;
         }
 
-        this.commands.push(type);
-        this.sfx.playAddCommand();
-        this.renderTape();
-        this.updateExecuteButton();
+        this.sound.playAddCommand();
+        this.commands.push(cmd);
+        this.renderCommandTape();
       }
 
       deleteLastCommand() {
-        if (this.isRunning) return;
-        if (this.commands.length > 0) {
-          this.commands.pop();
-          this.sfx.playClick();
-          this.renderTape();
-          this.updateExecuteButton();
-        }
+        if (this.isExecuting || this.commands.length === 0) return;
+        this.sound.playClick();
+        this.commands.pop();
+        this.renderCommandTape();
       }
 
       clearCommands() {
-        if (this.isRunning) return;
-        if (this.commands.length > 0) {
-          this.commands = [];
-          this.sfx.playClick();
-          this.renderTape();
-          this.updateExecuteButton();
-        }
+        if (this.isExecuting || this.commands.length === 0) return;
+        this.sound.playClick();
+        this.commands = [];
+        this.renderCommandTape();
       }
 
-      renderTape() {
+      renderCommandTape() {
         const tape = document.getElementById('commandTape');
         const countBadge = document.getElementById('instructionCountBadge');
-        const emptyNotice = document.getElementById('emptyTapeNotice');
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
+        tape.innerHTML = '';
 
-        countBadge.textContent = `${this.commands.length} / ${lvl.maxCommands} PASOS`;
+        countBadge.innerText = `${this.commands.length} PASOS`;
 
         if (this.commands.length === 0) {
-          tape.innerHTML = '';
-          tape.appendChild(emptyNotice);
-          emptyNotice.classList.remove('hidden');
+          tape.innerHTML = `<div id="emptyTapeNotice" class="text-xs font-medium text-slate-400 italic px-2">TOCÁ LAS FLECHAS DE ABAJO PARA ARMAR EL CAMINO...</div>`;
           return;
         }
 
-        tape.innerHTML = '';
-        const meta = {
-          FORWARD: { icon: '⬆️', label: 'ADELANTE', color: 'bg-emerald-100 border-[#00A86B] text-[#008756]' },
-          BACKWARD: { icon: '⬇️', label: 'ATRÁS', color: 'bg-orange-100 border-[#EA580C] text-[#9A3412]' },
-          TURN_LEFT: { icon: '↩️', label: 'IZQUIERDA', color: 'bg-amber-100 border-[#F59E0B] text-amber-900' },
-          TURN_RIGHT: { icon: '↪️', label: 'DERECHA', color: 'bg-amber-100 border-[#F59E0B] text-amber-900' }
-        };
-
         this.commands.forEach((cmd, idx) => {
-          const item = meta[cmd];
-          const chip = document.createElement('div');
-          chip.id = `chip-${idx}`;
-          chip.className = `btn-press flex-shrink-0 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-2xl border-2 ${item.color} flex items-center gap-1.5 shadow-sm font-bold text-xs sm:text-sm select-none cursor-pointer`;
-          chip.innerHTML = `
-            <span class="text-lg sm:text-xl">${item.icon}</span>
-            <span class="text-[10px] sm:text-xs font-black">${item.label}</span>
-          `;
-          chip.onclick = () => {
-            if (!this.isRunning) {
-              this.commands.splice(idx, 1);
-              this.sfx.playClick();
-              this.renderTape();
-              this.updateExecuteButton();
-            }
-          };
-          tape.appendChild(chip);
+          const item = document.createElement('div');
+          item.className = 'w-9 h-9 sm:w-11 sm:h-11 bg-white border-2 border-[#70E2B8] rounded-xl flex items-center justify-center text-lg sm:text-xl shadow-sm flex-shrink-0 animate-pop';
+
+          let icon = '⬆️';
+          if (cmd === 'BACKWARD') icon = '⬇️';
+          if (cmd === 'TURN_LEFT') icon = '⬅️';
+          if (cmd === 'TURN_RIGHT') icon = '➡️';
+
+          item.innerHTML = icon;
+          tape.appendChild(item);
         });
+
+        tape.scrollLeft = tape.scrollWidth;
       }
 
-      updateExecuteButton() {
-        const btn = document.getElementById('btnExecute');
-        if (!btn) return;
-        if (this.commands.length === 0) {
-          btn.classList.add('opacity-60');
-        } else {
-          btn.classList.remove('opacity-60');
-        }
+      showBanner(msg, typeClass) {
+        const banner = document.getElementById('inlineStatusBanner');
+        banner.innerText = msg;
+        banner.className = `w-full py-1 px-2.5 rounded-xl text-center font-bold text-xs flex-shrink-0 transition-all border ${typeClass}`;
+        banner.classList.remove('hidden');
+
+        setTimeout(() => banner.classList.add('hidden'), 2500);
+      }
+
+      speakCurrentPrompt() {
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
+        this.coach.speak(level.speech);
+      }
+
+      showHint() {
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
+        this.sound.playClick();
+        this.showBanner(`💡 PISTA: ${level.hint}`, "bg-amber-50 text-amber-900 border-amber-300");
+        this.coach.speak(level.hint);
       }
 
       async executeProgram() {
-        if (this.isRunning) return;
-
+        if (this.isExecuting) return;
         if (this.commands.length === 0) {
-          this.sfx.playDoubt();
-          this.setRobotExpression('doubt');
-          this.showInlineStatus("¡ELEGÍ AL MENOS UNA FLECHITA PARA MOVER AL ROBOT! ⬆️", "warning");
-          this.voice.speak("TOCÁ UNA DE LAS FLECHAS DE ABAJO PARA ARMAR EL CAMINO Y DESPUÉS PROBAMOS.");
+          this.sound.playDoubt();
+          this.showBanner("¡AGREGÁ AL MENOS UNA FLECHA PARA EMPEZAR!", "bg-pink-100 text-[#E6007E] border-pink-300");
           return;
         }
 
-        this.isRunning = true;
-        this.disableControlsDuringRun(true);
-        this.hideInlineStatus();
+        this.isExecuting = true;
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
+        this.robotState = { ...level.start };
+        this.renderRobot();
 
-        try {
-          const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-          this.robotState = { ...lvl.start };
-          this.renderRobotOnBoard();
-          this.setRobotExpression('idle');
+        await new Promise(r => setTimeout(r, 400));
 
-          await this.sleep(450);
+        let fail = false;
 
-          let crashed = false;
+        for (let i = 0; i < this.commands.length; i++) {
+          const cmd = this.commands[i];
+          this.highlightTapeStep(i);
 
-          for (let i = 0; i < this.commands.length; i++) {
-            const cmd = this.commands[i];
-            this.highlightTapeChip(i);
-
-            const result = this.applyCommandStep(cmd, lvl);
-            this.renderRobotOnBoard();
-
-            if (!result.success) {
-              crashed = true;
-              this.sfx.playDoubt();
-              this.setRobotExpression('doubt');
-              break;
-            }
-
-            await this.sleep(600);
+          if (cmd === 'TURN_LEFT') {
+            this.sound.playTurn();
+            this.rotateRobot('LEFT');
+          } else if (cmd === 'TURN_RIGHT') {
+            this.sound.playTurn();
+            this.rotateRobot('RIGHT');
+          } else if (cmd === 'FORWARD') {
+            this.sound.playStep();
+            this.moveRobot(1);
+          } else if (cmd === 'BACKWARD') {
+            this.sound.playStep();
+            this.moveRobot(-1);
           }
 
-          this.unhighlightAllChips();
-          await this.sleep(350);
+          this.renderRobot();
+          await new Promise(r => setTimeout(r, 450));
 
-          const isAtGoal = (this.robotState.x === lvl.goal.x && this.robotState.y === lvl.goal.y);
-
-          if (!crashed && isAtGoal) {
-            this.handleSuccess();
-          } else {
-            this.handleFailure(crashed);
+          if (this.robotState.x < 0 || this.robotState.x >= level.cols ||
+              this.robotState.y < 0 || this.robotState.y >= level.rows) {
+            fail = true;
+            break;
           }
-        } catch (error) {
-          console.error("EXECUTION ERROR:", error);
-        } finally {
-          this.isRunning = false;
-          this.disableControlsDuringRun(false);
-        }
-      }
 
-      applyCommandStep(cmd, lvl) {
-        const dirs = ['N', 'E', 'S', 'W'];
-        let currentIdx = dirs.indexOf(this.robotState.dir);
-
-        if (cmd === 'TURN_LEFT') {
-          this.robotState.dir = dirs[(currentIdx + 3) % 4];
-          this.sfx.playTurn();
-          return { success: true };
+          const obs = level.obstacles.find(o => o.x === this.robotState.x && o.y === this.robotState.y);
+          if (obs) {
+            fail = true;
+            break;
+          }
         }
 
-        if (cmd === 'TURN_RIGHT') {
-          this.robotState.dir = dirs[(currentIdx + 1) % 4];
-          this.sfx.playTurn();
-          return { success: true };
-        }
+        this.unhighlightTape();
 
-        let newX = this.robotState.x;
-        let newY = this.robotState.y;
-        const delta = cmd === 'FORWARD' ? 1 : -1;
+        const reachedGoal = (this.robotState.x === level.goal.x && this.robotState.y === level.goal.y);
 
-        if (this.robotState.dir === 'N') newY -= delta;
-        if (this.robotState.dir === 'S') newY += delta;
-        if (this.robotState.dir === 'E') newX += delta;
-        if (this.robotState.dir === 'W') newX -= delta;
-
-        if (newX < 0 || newX >= lvl.cols || newY < 0 || newY >= lvl.rows) {
-          return { success: false, reason: 'wall' };
-        }
-
-        const hitObstacle = lvl.obstacles.some(o => o.x === newX && o.y === newY);
-        if (hitObstacle) {
-          return { success: false, reason: 'obstacle' };
-        }
-
-        this.robotState.x = newX;
-        this.robotState.y = newY;
-        this.sfx.playStep();
-        return { success: true };
-      }
-
-      highlightTapeChip(index) {
-        this.unhighlightAllChips();
-        const chip = document.getElementById(`chip-${index}`);
-        if (chip) {
-          chip.classList.add('ring-4', 'ring-[#E6007E]', 'scale-105');
-        }
-      }
-
-      unhighlightAllChips() {
-        document.querySelectorAll('#commandTape > div').forEach(el => {
-          el.classList.remove('ring-4', 'ring-[#E6007E]', 'scale-105');
-        });
-      }
-
-      disableControlsDuringRun(disable) {
-        const btnExec = document.getElementById('btnExecute');
-        if (disable) {
-          btnExec.classList.add('opacity-50', 'pointer-events-none');
+        if (reachedGoal && !fail) {
+          this.sound.playSuccess();
+          this.unlockNextLevel();
+          document.getElementById('successModal').classList.remove('hidden');
+          this.coach.speak("¡EXCELENTE! LLEGASTE A LA META.");
         } else {
-          btnExec.classList.remove('opacity-50', 'pointer-events-none');
+          this.sound.playDoubt();
+          document.getElementById('retryModal').classList.remove('hidden');
+          this.coach.speak("¡CASI CASI! PROBEMOS OTRO CAMINO.");
+        }
+
+        this.isExecuting = false;
+      }
+
+      highlightTapeStep(idx) {
+        const tape = document.getElementById('commandTape');
+        const children = tape.children;
+        for (let i = 0; i < children.length; i++) {
+          if (i === idx) {
+            children[i].classList.add('border-[#E6007E]', 'scale-110', 'bg-pink-50');
+          } else {
+            children[i].classList.remove('border-[#E6007E]', 'scale-110', 'bg-pink-50');
+          }
         }
       }
 
-      handleSuccess() {
-        this.sfx.playSuccess();
-        this.setRobotExpression('happy');
-        this.showInlineStatus("⭐ ¡MISIÓN CUMPLIDA! EL ROBOT LLEGÓ A LA META.", "success");
+      unhighlightTape() {
+        const tape = document.getElementById('commandTape');
+        const children = tape.children;
+        for (let i = 0; i < children.length; i++) {
+          children[i].classList.remove('border-[#E6007E]', 'scale-110', 'bg-pink-50');
+        }
+      }
 
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-        const nextId = lvl.id + 1;
-        if (!this.progress[this.currentGrade].includes(nextId)) {
-          this.progress[this.currentGrade].push(nextId);
+      rotateRobot(dir) {
+        const dirs = ['N', 'E', 'S', 'W'];
+        let curIdx = dirs.indexOf(this.robotState.dir);
+        if (dir === 'RIGHT') {
+          curIdx = (curIdx + 1) % 4;
+        } else {
+          curIdx = (curIdx + 3) % 4;
+        }
+        this.robotState.dir = dirs[curIdx];
+      }
+
+      moveRobot(step) {
+        let dx = 0, dy = 0;
+        if (this.robotState.dir === 'N') dy = -1;
+        if (this.robotState.dir === 'E') dx = 1;
+        if (this.robotState.dir === 'S') dy = 1;
+        if (this.robotState.dir === 'W') dx = -1;
+
+        this.robotState.x += dx * step;
+        this.robotState.y += dy * step;
+      }
+
+      unlockNextLevel() {
+        const currentUnlocked = this.unlockedLevels[this.currentGrade] || 1;
+        if (this.currentLevelIdx + 2 > currentUnlocked) {
+          this.unlockedLevels[this.currentGrade] = this.currentLevelIdx + 2;
           this.saveProgress();
         }
-
-        const phrases = [
-          "¡MUY BIEN! ¡LLEGASTE A LA META!",
-          "¡MISIÓN CUMPLIDA! QUÉ GRAN RECORRIDO PROGRAMASTE.",
-          "¡EXCELENTE! CODIT ESTÁ MUY FELIZ.",
-          "¡LO LOGRASTE! DALE LA MANO A TUS SUEÑOS."
-        ];
-        const randomSpeech = phrases[Math.floor(Math.random() * phrases.length)];
-        this.voice.speak(randomSpeech);
-
-        const modal = document.getElementById('successModal');
-        if (modal) {
-          modal.classList.remove('hidden');
-          modal.style.display = 'flex';
-        }
-      }
-
-      handleFailure(crashed) {
-        this.sfx.playDoubt();
-        this.setRobotExpression('doubt');
-
-        const retryModal = document.getElementById('retryModal');
-        const desc = document.getElementById('retryDesc');
-
-        let msg = "¡CASI CASI! ¿QUÉ FLECHA PODEMOS CAMBIAR PARA LLEGAR?";
-        let oral = "¡CASI CASI! PROBEMOS OTRO CAMINO. ¿QUÉ FLECHA PODEMOS CAMBIAR?";
-
-        if (crashed) {
-          msg = "¡POR AHÍ NO! CODIT ENCONTRÓ UN LÍMITE O UN OBSTÁCULO. ¡BUSQUEMOS OTRA DIRECCIÓN!";
-          oral = "¡ATENCIÓN! POR AHÍ NO PUDIMOS PASAR. ¡CAMBIEMOS UNA FLECHA Y PROBEMOS DE NUEVO!";
-        }
-
-        this.showInlineStatus("🤔 " + msg, "warning");
-        if (desc) desc.textContent = msg;
-        this.voice.speak(oral);
-
-        if (retryModal) {
-          retryModal.classList.remove('hidden');
-          retryModal.style.display = 'flex';
-        }
-      }
-
-      showInlineStatus(text, type) {
-        const banner = document.getElementById('inlineStatusBanner');
-        if (!banner) return;
-        banner.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-900', 'border-[#00A86B]', 'bg-pink-100', 'text-pink-900', 'border-[#E6007E]');
-        if (type === 'success') {
-          banner.classList.add('bg-emerald-100', 'text-emerald-900', 'border-2', 'border-[#00A86B]');
-        } else {
-          banner.classList.add('bg-pink-100', 'text-[#B80064]', 'border-2', 'border-[#E6007E]');
-        }
-        banner.textContent = text;
-      }
-
-      hideInlineStatus() {
-        const banner = document.getElementById('inlineStatusBanner');
-        if (banner) banner.classList.add('hidden');
-      }
-
-      closeRetryModal() {
-        const retryModal = document.getElementById('retryModal');
-        if (retryModal) {
-          retryModal.classList.add('hidden');
-          retryModal.style.display = 'none';
-        }
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-        this.robotState = { ...lvl.start };
-        this.renderRobotOnBoard();
-        this.setRobotExpression('idle');
       }
 
       replayCurrentLevel() {
-        const modal = document.getElementById('successModal');
-        if (modal) {
-          modal.classList.add('hidden');
-          modal.style.display = 'none';
-        }
-        this.startLevel(this.currentLevelIndex);
+        document.getElementById('successModal').classList.add('hidden');
+        this.startLevel(this.currentLevelIdx);
       }
 
       nextLevel() {
-        const modal = document.getElementById('successModal');
-        if (modal) {
-          modal.classList.add('hidden');
-          modal.style.display = 'none';
-        }
+        document.getElementById('successModal').classList.add('hidden');
         const levels = GAME_CONFIG[this.currentGrade].levels;
-        if (this.currentLevelIndex < levels.length - 1) {
-          this.startLevel(this.currentLevelIndex + 1);
+        if (this.currentLevelIdx + 1 < levels.length) {
+          this.startLevel(this.currentLevelIdx + 1);
         } else {
-          this.voice.speak("¡FELICITACIONES! ¡COMPLETASTE TODAS LAS MISIONES DE CHF ROBÓTICA!");
           this.showLevelsMap();
         }
       }
 
-      showHint() {
-        const lvl = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIndex];
-        this.sfx.playAddCommand();
-        this.voice.speak(lvl.hint);
+      closeRetryModal() {
+        document.getElementById('retryModal').classList.add('hidden');
+        const level = GAME_CONFIG[this.currentGrade].levels[this.currentLevelIdx];
+        this.robotState = { ...level.start };
+        this.renderRobot();
+      }
 
-        const goalCell = document.getElementById(`cell-${lvl.goal.x}-${lvl.goal.y}`);
-        if (goalCell) {
-          goalCell.classList.add('ring-4', 'ring-[#E6007E]');
-          setTimeout(() => goalCell.classList.remove('ring-4', 'ring-[#E6007E]'), 2500);
-        }
+      confirmResetGame() {
+        this.sound.playClick();
+        document.getElementById('resetConfirmModal').classList.remove('hidden');
+      }
+
+      closeResetModal() {
+        document.getElementById('resetConfirmModal').classList.add('hidden');
+      }
+
+      executeResetGame() {
+        this.closeResetModal();
+        this.unlockedLevels = { sala4: 1, sala5: 1 };
+        this.saveProgress();
+        this.showHome();
+      }
+
+      toggleSound() {
+        this.sound.enabled = !this.sound.enabled;
+        this.coach.enabled = this.sound.enabled;
+        document.getElementById('soundIcon').innerText = this.sound.enabled ? '🔊' : '🔇';
       }
 
       openTeacherModal() {
-        const modal = document.getElementById('teacherModal');
-        modal.classList.remove('hidden');
-        this.renderTeacherLevelList();
+        this.sound.playClick();
+        const container = document.getElementById('teacherLevelList');
+        container.innerHTML = '';
+
+        const levels = GAME_CONFIG[this.currentGrade].levels;
+        levels.forEach((lvl, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-bold text-xs border border-slate-300';
+          btn.innerText = `M${lvl.id}`;
+          btn.onclick = () => {
+            this.closeTeacherModal();
+            this.startLevel(idx);
+          };
+          container.appendChild(btn);
+        });
+
+        document.getElementById('teacherModal').classList.remove('hidden');
       }
 
       closeTeacherModal() {
@@ -1535,94 +1274,25 @@
       }
 
       setGradeFromTeacher(grade) {
-        this.currentGrade = grade;
-        this.saveProgress();
-        this.renderGradeTitle();
-        this.renderTeacherLevelList();
-        this.showLevelsMap();
-        this.closeTeacherModal();
-      }
-
-      renderTeacherLevelList() {
-        const container = document.getElementById('teacherLevelList');
-        container.innerHTML = '';
-        const levels = GAME_CONFIG[this.currentGrade].levels;
-
-        levels.forEach((lvl, idx) => {
-          const btn = document.createElement('button');
-          btn.className = 'py-2 px-1 bg-slate-100 hover:bg-emerald-100 border border-slate-300 rounded-xl text-xs font-extrabold text-slate-700 text-center';
-          btn.textContent = `NIVEL ${lvl.id}`;
-          btn.onclick = () => {
-            this.closeTeacherModal();
-            this.startLevel(idx);
-          };
-          container.appendChild(btn);
-        });
-      }
-
-      confirmResetGame() {
-        this.sfx.playClick();
-        const modal = document.getElementById('resetConfirmModal');
-        if (modal) {
-          modal.classList.remove('hidden');
-          modal.style.display = 'flex';
-        }
-      }
-
-      closeResetModal() {
-        const modal = document.getElementById('resetConfirmModal');
-        if (modal) {
-          modal.classList.add('hidden');
-          modal.style.display = 'none';
-        }
-      }
-
-      executeResetGame() {
-        this.closeResetModal();
-        this.resetProgress();
+        this.selectGrade(grade);
+        this.openTeacherModal();
       }
 
       resetProgress() {
-        this.progress = {
-          sala4: [1],
-          sala5: [1]
-        };
+        this.unlockedLevels = { sala4: 1, sala5: 1 };
         this.saveProgress();
-        this.renderLevelsGrid();
-        this.renderTeacherLevelList();
-        this.closeTeacherModal();
-        this.showHome();
-        this.voice.speak("EL JUEGO SE HA REINICIADO DESDE CERO. ¡A JUGAR!");
+        this.openTeacherModal();
       }
 
       unlockAllLevels() {
-        this.progress.sala4 = [1, 2, 3, 4, 5, 6, 7, 8];
-        this.progress.sala5 = [1, 2, 3, 4, 5, 6, 7, 8];
+        this.unlockedLevels = { sala4: 99, sala5: 99 };
         this.saveProgress();
-        this.renderLevelsGrid();
-        this.renderTeacherLevelList();
-        this.closeTeacherModal();
-        this.showLevelsMap();
-        this.voice.speak("TODOS LOS NIVELES HAN SIDO DESBLOQUEADOS PARA EL TALLER.");
-      }
-
-      sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        this.openTeacherModal();
       }
     }
 
-    let app;
-    window.addEventListener('DOMContentLoaded', () => {
-      app = new MissionGame();
-      app.init();
-
-      window.addEventListener('resize', () => {
-        const gameScreen = document.getElementById('gameScreen');
-        if (gameScreen && !gameScreen.classList.contains('hidden') && app) {
-          app.renderBoard();
-        }
-      });
-    });
+    const app = new App();
+    window.onload = () => app.init();
   </script>
 </body>
 </html>
